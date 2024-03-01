@@ -1,0 +1,73 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<LiveAttachment>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Live";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Live Attachments</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "LiveAttachments",
+        SingleName = "LiveAttachment",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+         new GridField("OrderNumber", "Id", "Order Number")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/LiveAttachments/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+         new GridField("Name", "Id", "Attachment name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/LiveAttachments/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+         new GridField("Live.LiveName", "LiveId", "Live")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["LiveId"]
+
+            }
+        },
+             new GridField("File Path", "Path" ,"Go To File", "http://tollab.azurewebsites.net/ws/CourseVideos/" ,true )
+                         {
+                             Filter = new GridFieldFilter()
+                             {
+                                 Type = GridFieldFilterType.HyperLink
+                             }
+                         }
+        }
+    });
+}

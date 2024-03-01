@@ -1,0 +1,101 @@
+﻿@model Tollab.Admin.Data.Models.Reply
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Edit Reply</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.VideoQuestionId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="VideoQuestionId"
+                   name="VideoQuestionId"
+                   data-grid-filter-field="Question"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/VideoQuestions/autocomplete"
+                   dataPreSelectedIds="@Model.VideoQuestionId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.VideoQuestionId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group hidden">
+        @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="StudentId"
+                   name="StudentId"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Students/autocomplete"
+                   dataPreSelectedIds="@Model.StudentId"
+                   dataMaxItems="1" disabled />
+            @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <input type="text" name="StudentId" value="@Model.StudentId" hidden />
+    <input type="text" name="TeacherId" value="@Model.TeacherId" hidden />
+    <div class="form-group">
+        @Html.LabelFor(model => model.TeacherId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="TeacherId"
+                   name="TeacherId"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Teachers/autocomplete"
+                   dataPreSelectedIds="@Model.TeacherId"
+                   dataMaxItems="1" disabled />
+            @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ViewMyAccount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.ViewMyAccount)
+                @Html.ValidationMessageFor(model => model.ViewMyAccount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

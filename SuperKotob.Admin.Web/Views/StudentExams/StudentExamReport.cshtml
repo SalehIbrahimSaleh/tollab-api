@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "StudentExamReport";
+}
+
+@model Tollab.Admin.Data.Models.Views.StudentExamView
+
+ 
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Select Student Or Exam</h2>
+
+@using (Html.BeginForm())
+{
+    <h2 style="text-align:center;color:red;">@ViewBag.Error</h2>
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group" id="Students">
+            @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="StudentId"
+                       name="StudentId"
+                       data-grid-filter-field="Phone"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Students/autocomplete"
+                       dataPreSelectedIds="@Model.StudentId"
+                       dataMaxItems="1" />
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="Exams">
+            @Html.LabelFor(model => model.ExamId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="ExamId"
+                       name="ExamId"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Exams/autocomplete"
+                       dataPreSelectedIds="@Model.ExamId"
+                       dataMaxItems="1" />
+                @Html.ValidationMessageFor(model => model.ExamId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="View Report" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<script src="~/plugins/jQuery/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+
+         $(function () {
+             $("#StudentId").change(function () {
+                 var val = 0;
+                 val= $(this).val();
+
+                 if (!$(this).val()) {
+                     $("#Students").show();
+                         $("#Exams").show();
+                     }
+                 else if (val >0) {
+
+                     $("#Exams").hide();
+                 }
+
+             });
+             $("#ExamId").change(function () {
+                 var val = 0;
+                 val = $(this).val();
+
+                 if (!$(this).val()) {
+                     $("#Students").show();
+                     $("#Exams").show();
+                 }
+                 else if (val > 0) {
+
+                     $("#Students").hide();
+                 }
+
+             });
+
+    });
+</script>

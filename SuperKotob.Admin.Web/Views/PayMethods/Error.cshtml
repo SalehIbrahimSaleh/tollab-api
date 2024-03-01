@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Success</title>
+    <style>
+        #hh {
+            text-align: center;
+            margin-top: 140px;
+        }
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("Error", "PayMethods", FormMethod.Get, new { target = "_blank" }))
+    {
+        <div class="jumbotron text-xs-center" id="hh">
+            <h1 class="display-3">Sorry!</h1>
+            <p class="lead" style="align-content:center;">Your operation failed please try again later</p>
+            <hr>
+        </div>
+
+    }
+</body>
+</html>

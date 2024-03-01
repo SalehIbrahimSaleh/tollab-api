@@ -1,0 +1,343 @@
+﻿@model Tollab.Admin.Data.Models.Live
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Edit Live</h2>
+
+@using (Html.BeginForm("EditWithImage", "Lives", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(a => a.Id)
+    @Html.HiddenFor(a => a.HostURL)
+    @Html.HiddenFor(a => a.JoinURL)
+    @Html.HiddenFor(a => a.ZoomMeetingId)
+    @Html.HiddenFor(a => a.VideoURI)
+    @Html.HiddenFor(a => a.VideoURL)
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.LiveName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.LiveName, new { htmlAttributes = new { @class = "form-control", required = true } })
+            @Html.ValidationMessageFor(model => model.LiveName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.OrderNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", required = true } })
+            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.LiveDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" id="LiveDate" required value="@Model.LiveDate.ToString("yyyy-MM-ddTHH:mm:ss")" name="LiveDate" class="form-control">
+            @Html.ValidationMessageFor(model => model.LiveDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LiveAppearanceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" id="LiveAppearanceDate" required value="@Model.LiveAppearanceDate.ToString("yyyy-MM-ddTHH:mm:ss")" name="LiveAppearanceDate" class="form-control">
+            @Html.ValidationMessageFor(model => model.LiveAppearanceDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CurrentPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CurrentPrice, new { htmlAttributes = new { @class = "form-control", required = true } })
+            @Html.ValidationMessageFor(model => model.CurrentPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OldPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.OldPrice, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OldPrice, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SKUNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.SKUNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.SKUNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="ImageContainer">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="imageFile" name="imageFile" class="form-control" required accept=".jpg, .png, .jpeg|images/*">
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Image Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <img src="http://tollab.azurewebsites.net/ws/Images/LiveImages/@Model.Image" style="width:45%;height:100%;" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Image Url", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <a href="http://tollab.azurewebsites.net/ws/Images/LiveImages/@Model.Image">download</a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="VideoFile" name="VideoFile" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+            @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @if (Model.VideoURL != null)
+    {
+        <div class="form-group">
+            @Html.Label("Content Path", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="@Model.VideoURL">download</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   required
+                   id="CountryId"
+                   name="CountryId"
+                   data-grid-filter-name="Id"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Countries/autocomplete"
+                   dataPreSelectedIds="@Model.CountryId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TeacherId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   required
+                   id="TeacherId"
+                   name="TeacherId"
+                   data-grid-filter-name="Id"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Teachers/autocomplete"
+                   dataPreSelectedIds="@Model.TeacherId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LiveLinkType, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.LiveLinkType, new List<SelectListItem> { new SelectListItem() { Text = "Track", Value = "1" }, new SelectListItem() { Text = "Course", Value = "2" }, new SelectListItem() { Text = "Other", Value = "3" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LiveLinkType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group" id="TrackContainer">
+        @Html.LabelFor(model => model.TrackId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="TrackId"
+                   name="TrackId"
+                   data-grid-filter-name="Id"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Tracks/autocomplete"
+                   dataPreSelectedIds="@Model.TrackId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.TrackId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" id="OrderContainer">
+        @Html.LabelFor(model => model.CourseOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CourseOrder, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CourseOrder, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" id="CourseContainer">
+        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="CourseId"
+                   name="CourseId"
+                   data-grid-filter-name="Id"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Courses/autocomplete"
+                   dataPreSelectedIds="@Model.CourseId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @{
+        List<SelectListItem> listItemsWaterMark = new List<SelectListItem>();
+
+
+        listItemsWaterMark.Add(new SelectListItem
+        {
+            Text = "False",
+            Value = "false",
+
+        });
+        listItemsWaterMark.Add(new SelectListItem
+        {
+            Text = "True",
+            Value = "true"
+        });
+
+
+        List<SelectListItem> listItemsWaterMarkReverse = new List<SelectListItem>();
+
+
+        listItemsWaterMarkReverse.Add(new SelectListItem
+        {
+            Text = "False",
+            Value = "true",
+
+        });
+        listItemsWaterMarkReverse.Add(new SelectListItem
+        {
+            Text = "True",
+            Value = "false"
+        });
+        
+        List<SelectListItem> optionsFoZoom = new List<SelectListItem>();
+
+
+        optionsFoZoom.Add(new SelectListItem
+        {
+            Text = "Info Account",
+            Value = "1",
+
+        });
+        optionsFoZoom.Add(new SelectListItem
+        {
+            Text = "Tamer Account",
+            Value = "2",
+
+        }); optionsFoZoom.Add(new SelectListItem
+        {
+            Text = "Tollab Teacher",
+            Value = "3",
+
+        }); optionsFoZoom.Add(new SelectListItem
+        {
+            Text = "Ellithy Account",
+            Value = "4",
+
+        });
+    }
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsShowInWeb, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IsShowInWeb, listItemsWaterMark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IsShowInWeb, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ZoomAccount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.ZoomAccount, optionsFoZoom, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ZoomAccount, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.IsActive, listItemsWaterMarkReverse, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Edit" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            switch ("@Model.LiveLinkType")
+            {
+                case "TRACK":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').show();
+                    $('#OrderContainer').show();
+                    break;
+                case "COURSE":
+                    $('#CourseContainer').show();
+                    $('#TrackContainer').hide();
+                    $('#OrderContainer').hide();
+                    break;
+                case "OTHER":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').hide();
+                    $('#OrderContainer').hide();
+
+            }
+        })
+        $('#LiveLinkType').change((event) => {
+            let liveTypeId = $('#LiveLinkType').val();
+
+            $('#TrackId').val('');
+            $('#CourseId').val('');
+            $('#CourseOrder').val('');
+            debugger;
+            switch (liveTypeId) {
+                case "1":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').show();
+                    $('#OrderContainer').show();
+                    break;
+                case "2":
+                    $('#CourseContainer').show();
+                    $('#TrackContainer').hide();
+                    $('#OrderContainer').hide();
+                    break;
+                case "3":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').hide();
+                    $('#OrderContainer').hide();
+                    break;
+            }
+        })
+    </script>
+}

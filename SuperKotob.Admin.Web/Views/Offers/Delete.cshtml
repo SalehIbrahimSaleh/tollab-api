@@ -1,0 +1,64 @@
+﻿@model Tollab.Admin.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Offer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.CourseTrack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.CourseTrack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleLT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleLT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndOfferDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndOfferDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

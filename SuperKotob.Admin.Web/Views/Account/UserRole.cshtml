@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "UserRole";
+}
+
+<h2>UserRole</h2>
+@using (Html.BeginForm("AssignUserToRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+
+    <div class="form-group">
+        @Html.Label("User Name", new { @class = "col-md-2 control-label" })
+        <div class="col-md-8">
+            @Html.DropDownList("UserName", ViewBag.Users as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Role Name", new { @class = "col-md-2 control-label" })
+        <div class="col-md-8">
+            @Html.DropDownList("Name", ViewBag.Roles as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Create" />
+        </div>
+    </div>
+}
+

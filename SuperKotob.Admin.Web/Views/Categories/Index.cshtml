@@ -1,0 +1,87 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Category>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Section";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Categories</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Categories",
+        SingleName = "Category",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+            new GridField("CategorySection", "Id", "Category-Section")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Categories/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("Name", "Id", "English Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Categories/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("NameLT", "Id", "Arabic Name")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Categories/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+           new GridField("Section.SectionCountry", "SectionId", "Section")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Sections/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["SectionId"]
+
+            }
+        },
+
+                      new GridField("Sub Categories","Id","Show Sub Categories","/SubCategories?CategoryId=",true )
+              {
+              Filter = new GridFieldFilter()
+              {
+                  Type = GridFieldFilterType.HyperLink
+
+
+              }
+      },
+
+        }
+    });
+}

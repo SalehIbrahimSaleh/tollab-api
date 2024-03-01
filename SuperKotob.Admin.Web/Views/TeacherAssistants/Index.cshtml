@@ -1,0 +1,99 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TeacherAssistant>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+@using SuperKotob.Models
+
+
+@{
+    ViewBag.Title = "Students";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Teacher Assistants</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TeacherAssistants",
+        SingleName = "TeacherAssistant",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+new GridField("Id")
+{
+Filter = new GridFieldFilter()
+{
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+},
+new GridField("Name", "Id", "Name")
+{
+Filter = new GridFieldFilter()
+{
+Type = GridFieldFilterType.Ajax,
+AjaxSource = "/TeacherAssistants/autocomplete",
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+}
+,
+new GridField("Email", "Id", "Email")
+{
+Filter = new GridFieldFilter()
+{
+Type = GridFieldFilterType.Ajax,
+AjaxSource = "/TeacherAssistants/AutoComplete",
+PreSelectedIds = Model.RequestInputs["Id"]
+
+}
+},
+
+new GridField("Phone", "Id", "Phone")
+{
+Filter = new GridFieldFilter()
+{
+Type = GridFieldFilterType.Ajax,
+AjaxSource = "/TeacherAssistants/AutoComplete",
+PreSelectedIds = Model.RequestInputs["Id"]
+
+}
+},
+ 
+ 
+ new GridField("Enabled", "IsEnabled", "Enabled","width:75px"){
+Filter = new GridFieldFilter()
+{
+Type = GridFieldFilterType.Select,
+Options = new List<LookupItem>()
+{
+new LookupItem(){Title="Nothing" ,Id=-1, DisplayOrder = 0 },
+new LookupItem(){Title="Enabled" ,Id =1, DisplayOrder = 1},
+new LookupItem(){Title="Disabled", Id =2, DisplayOrder = 1},
+
+},
+PreSelectedIds = Model.RequestInputs["IsEnabled"]
+}
+},
+ new GridField("Photo",  "http://tollab.azurewebsites.net/ws/Images/TeacherAssistantImages/", "Photo",1){
+Filter = new GridFieldFilter()
+{
+     Type = GridFieldFilterType.Photo,
+}
+},
+}
+    });
+}
+
+
+  @*new GridField("Subjects","Id","Show Subjects","/TeacherSubjects?TeacherId=",true )
+ {
+ Filter = new GridFieldFilter()
+ {
+     Type = GridFieldFilterType.HyperLink
+ }
+ },*@

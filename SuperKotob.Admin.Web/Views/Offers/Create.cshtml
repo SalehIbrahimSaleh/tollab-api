@@ -1,0 +1,206 @@
+﻿@model Tollab.Admin.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Create Offer</h2>
+
+@using (Html.BeginForm("CreateWithImage", "Offers", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tilte, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Tilte, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Tilte, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TitleLT, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TitleLT, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TitleLT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.OrderNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OfferContentTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.OfferContentTypeId, new List<SelectListItem> { new SelectListItem() { Text = "Video", Value = "1" }, new SelectListItem() { Text = "Image", Value = "2" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TitleLT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" id="ImageContainer">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" id="imageFile" name="imageFile" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div id="VideoContainer">
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="videoFile" name="videoFile" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+                @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoThumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="VideoThumbnail" name="VideoThumbnail" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.VideoThumbnail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OfferLinkTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.OfferLinkTypeId, new List<SelectListItem> { new SelectListItem() { Text = "Course", Value = "1" }, new SelectListItem() { Text = "track", Value = "2" }, new SelectListItem() { Text = "External Link", Value = "3" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OfferLinkTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div id="LinkContainer">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExternalLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="url" id="ExternalLink" name="ExternalLink" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+                @Html.ValidationMessageFor(model => model.ExternalLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Countries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="Countries"
+                       name="CountriesString"
+                       data-grid-filter-name="Id"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Countries/autocomplete"
+                       dataPreSelectedIds="@Model.Countries"
+                       dataMaxItems="10" />
+                @Html.ValidationMessageFor(model => model.Countries, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div id="CourseContainer" class="form-group">
+        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="CourseId"
+                   name="CourseId"
+                   data-grid-filter-field="CourseTrack"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Courses/autocomplete"
+                   dataPreSelectedIds="@Model.CourseId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div id="TrackContainer" class="form-group">
+        @Html.LabelFor(model => model.TrackId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="TrackId"
+                   name="TrackId"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Tracks/autocomplete"
+                   dataPreSelectedIds="@Model.TrackId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.TrackId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndOfferDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndOfferDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndOfferDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            $('#ImageContainer').hide();
+            $('#TrackContainer').hide();
+            $('#LinkContainer').hide();
+        })
+        $('#OfferContentTypeId').change((event) => {
+            let offerTypeId = $('#OfferContentTypeId').val();
+
+            $('#imageFile').val('');
+            $('#videoFile').val('');
+
+            switch (offerTypeId) {
+                case "1":
+                    $('#ImageContainer').hide();
+                    $('#VideoContainer').show();
+                    break;
+                case "2":
+                    $('#ImageContainer').show();
+                    $('#VideoContainer').hide();
+                    break;
+            }
+        })
+
+        $('#OfferLinkTypeId').change((event) => {
+            let offerTypeId = $('#OfferLinkTypeId').val();
+
+            $('#CourseId').val('');
+            $('#TrackId').val('');
+            $('#ExternalLink').val('');
+
+            switch (offerTypeId) {
+                case "1":
+                    $('#CourseContainer').show();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').hide();
+                    break;
+                case "2":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').show();
+                    $('#LinkContainer').hide();
+                    break;
+                case "3":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').show();
+            }
+        })
+    </script>
+}

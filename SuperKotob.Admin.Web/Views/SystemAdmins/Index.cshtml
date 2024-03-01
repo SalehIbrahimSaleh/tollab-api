@@ -1,0 +1,77 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<SystemAdmin>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+@using SuperKotob.Utils.Helpers
+@using SuperKotob.Models
+
+
+@{
+    ViewBag.Title = "SystemAdmin";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Admins</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "SystemAdmins",
+        SingleName = "SystemAdmin",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+new GridField("Id")
+{
+  Filter = new GridFieldFilter()
+{
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+},
+new GridField("Name", "Id", "Name")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/SystemAdmins/autocomplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+    }
+}
+,
+new GridField("Email", "Id", "Email")
+{
+    Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/SystemAdmins/AutoComplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+
+    }
+},
+
+
+new GridField("Role", "IsType", "Type","width:75px"){
+Filter = new GridFieldFilter()
+{
+Type = GridFieldFilterType.Select,
+Options = new List<LookupItem>()
+    {
+        new LookupItem(){Title="Nothing" ,Id = -1, DisplayOrder = 0 },
+        new LookupItem(){Title="Admin" ,Id =1, DisplayOrder = 1},
+        
+
+    },
+PreSelectedIds = Model.RequestInputs["IsType"]
+}
+},
+
+
+}
+    });
+}

@@ -1,0 +1,67 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TopCourses>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models.Views
+@using SuperKotob.Admin.Data.Models
+@using SuperKotob.Models
+
+
+@{
+    ViewBag.Title = "Students";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Top Courses</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TopCourses/ShowTop",
+        SingleName = "TopCourses",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+new GridField("Id")
+{
+  Filter = new GridFieldFilter()
+{
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+},
+ new GridField("Name", "Id", "Name")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/TopCourses/autocomplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+    }
+}
+,
+new GridField("Amount", "Id", "Amount")
+{
+    Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.WithoutSearch,
+    AjaxSource = "/TopCourses/AutoComplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+
+    }
+},     
+new GridField("Country.Name", "CountryId", "Country")
+{
+    Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.WithoutSearch,
+    AjaxSource = "/Countries/AutoComplete",
+    PreSelectedIds = Model.RequestInputs["CountryId"]
+
+    }
+},
+}
+});
+}

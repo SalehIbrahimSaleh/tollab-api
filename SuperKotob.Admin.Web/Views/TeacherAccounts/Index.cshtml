@@ -1,0 +1,66 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TeacherAccount>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "TeacherAccount";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Teacher Accounts</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TeacherAccounts",
+        SingleName = "TeacherAccount",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("AccountNumber", "Id", "Account Number")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/TeacherAccounts/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+          new GridField("Note", "Id", "Note")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/TeacherAccounts/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+  new GridField("Teacher.Name", "TeacherId", "Teacher")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Teachers/autocomplete",
+            PreSelectedIds = Model.RequestInputs["TeacherId"]
+            }
+        }
+        ,
+        }
+    });
+}

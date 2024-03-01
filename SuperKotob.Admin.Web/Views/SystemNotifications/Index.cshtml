@@ -1,0 +1,90 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<SystemNotification>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "SystemNotifications";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">System Notification</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "SystemNotifications",
+        SingleName = "SystemNotification",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("NotificationType.Name", "NotificationTypeId", "Type")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/NotificationTypes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["NotificationTypeId"]
+            }
+        }
+        ,
+          new GridField("Message", "Id", "Message")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/NotificationTypes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("Note", "Id", "Note")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/NotificationTypes/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+         new GridField("CreationDate", "Id", "Creation Date")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/NotificationTypes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ReferenceId"]
+            }
+        },
+        
+        }
+    });
+}
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+
+    #txt {
+        display: none;
+    }
+</style>

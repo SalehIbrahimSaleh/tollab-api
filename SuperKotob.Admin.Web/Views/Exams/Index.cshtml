@@ -1,0 +1,156 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Exam>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Exams";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Exams</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Exams",
+        SingleName = "Exam",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Course.Name", "CourseId", "Course")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Courses/autocomplete",
+            PreSelectedIds = Model.RequestInputs["CourseId"]
+            }
+        }
+        ,
+         new GridField("ExamType.Name", "ExamTypeId", "Exam Type")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/ExamTypes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamTypeId"]
+            }
+        }
+        ,
+            new GridField("Name", "Id", "Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Exams/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("StartDate", "Id", "Start Date")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+   new GridField("DeadlineDate", "Id", "Deadline Date")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+      new GridField("EndDate", "Id", "End Date")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+    new GridField("OrderNumber", "Id", "Order Number")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+     new GridField("Duration", "Id", "Duration")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+      new GridField("Publish", "Id", "Publish")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Exams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+             new GridField("Questions","Id","Show Questions","/ExamQuestions?ExamId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+             new GridField("Students","Id","Show Students","/StudentExams?ExamId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+
+        }
+    });
+}
+<style>
+    
+
+    #det {
+        display: none;
+    }
+
+    #crt {
+        display: none;
+    }
+
+    #txt {
+        display: none;
+    }
+</style>

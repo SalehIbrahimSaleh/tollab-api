@@ -1,0 +1,143 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TeacherTransaction>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "TeacherTransaction";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Teacher Transactions</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TeacherTransactions",
+        SingleName = "TeacherTransaction",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Reason", "Id", "English Reason")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherTransactions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+           new GridField("ReasonLT", "Id", "Arabic Reason")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherTransactions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+
+        new GridField("ReferenceNumber", "Id", "Reference Number")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/TeacherTransactions/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+         new GridField("Amount", "Id", "Amount")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherTransactions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+                     new GridField("PromocodeNumber", "Id", "Promocode")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherTransactions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+
+  new GridField("CreationDate", "Id", "Creation Date")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherTransactions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+  new GridField("Teacher.Name", "TeacherId", "Teacher")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Teachers/autocomplete",
+            PreSelectedIds = Model.RequestInputs["TeacherId"]
+            }
+        }
+        ,
+   new GridField("Course.Name", "CourseId", "Course")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Courses/autocomplete",
+            PreSelectedIds = Model.RequestInputs["CourseId"]
+            }
+        }
+        ,
+     new GridField("Track.Name", "TrackId", "Track")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Tracks/autocomplete",
+            PreSelectedIds = Model.RequestInputs["TrackId"]
+            }
+        }
+        ,
+        }
+    });
+}
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+    /*#crt {
+        display: none;
+    }*/
+
+    #txt {
+        display: none;
+    }
+</style>

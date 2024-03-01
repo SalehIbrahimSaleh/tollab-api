@@ -1,0 +1,87 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<StudentCourse>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "StudentCourse";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Courses</h2>
+
+@{
+@*<a href="/StudentCourses/DeleteAllINPCoursesOrTracks" class="btn btn-primary">
+    <i class="fa " aria-hidden="true"></i> Delete All INP Courses Or Tracks
+</a>*@
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "StudentCourses",
+        SingleName = "StudentCourse",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+new GridField("Id")
+{
+  Filter = new GridFieldFilter()
+{
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+},
+    new GridField("Student.Phone", "StudentId", "Student")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/Students/autocomplete",
+    PreSelectedIds = Model.RequestInputs["StudentId"]
+    }
+}
+,
+new GridField("Course.Name", "CourseId", "Course")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/Courses/autocomplete",
+    PreSelectedIds = Model.RequestInputs["CourseId"]
+    }
+}
+,
+ new GridField("EnrollmentDate", "Id", "Enrolment Date")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/StudentCourses/autocomplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+    }
+}
+,
+}
+    });
+}
+
+<style>
+    #edt {
+        display: none;
+    }
+
+    /*#det {
+        display: none;
+    }*/
+
+    /*#crt {
+        display: none;
+    }*/
+
+    #txt {
+        display: none;
+    }
+</style>

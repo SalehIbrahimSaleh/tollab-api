@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tollab.Admin.Data</RootNamespace>
+    <AssemblyName>Tollab.Admin.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.20622.1351, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SuperKotob.Admin.Web\Bin\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\AboutUs.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ContactUs.cs" />
+    <Compile Include="Models\Content.cs" />
+    <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\CourseDepartment.cs" />
+    <Compile Include="Models\CourseStatus.cs" />
+    <Compile Include="Models\CowPayLog.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\DisableReason.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\ExamAnswer.cs" />
+    <Compile Include="Models\ExamQuestion.cs" />
+    <Compile Include="Models\ExamQuestionType.cs" />
+    <Compile Include="Models\ExamType.cs" />
+    <Compile Include="Models\Favourite.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Live.cs" />
+    <Compile Include="Models\LiveAttachment.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\Offer.cs" />
+    <Compile Include="Models\OfferCountry.cs" />
+    <Compile Include="Models\OfflinePackage.cs" />
+    <Compile Include="Models\PaymentMethod.cs" />
+    <Compile Include="Models\PaymentMethodType.cs" />
+    <Compile Include="Models\PromoCode.cs" />
+    <Compile Include="Models\Reference.cs" />
+    <Compile Include="Models\Reply.cs" />
+    <Compile Include="Models\SearchWord.cs" />
+    <Compile Include="Models\Section.cs" />
+    <Compile Include="Models\StudentLive.cs" />
+    <Compile Include="Models\StudentPackage.cs" />
+    <Compile Include="Models\SystemSetting.cs" />
+    <Compile Include="Models\Setting.cs" />
+    <Compile Include="Models\SolveStatus.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\StudentAnswer.cs" />
+    <Compile Include="Models\StudentContent.cs" />
+    <Compile Include="Models\StudentCourse.cs" />
+    <Compile Include="Models\StudentDepartment.cs" />
+    <Compile Include="Models\StudentExam.cs" />
+    <Compile Include="Models\StudentNotification.cs" />
+    <Compile Include="Models\StudentPromoCode.cs" />
+    <Compile Include="Models\StudentPushToken.cs" />
+    <Compile Include="Models\StudentTransaction.cs" />
+    <Compile Include="Models\SubCategory.cs" />
+    <Compile Include="Models\Subject.cs" />
+    <Compile Include="Models\SystemAdmin.cs" />
+    <Compile Include="Models\DataModel.cs" />
+    <Compile Include="Models\ModelDB.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\SystemNotification.cs" />
+    <Compile Include="Models\SystemTransaction.cs" />
+    <Compile Include="Models\Teacher.cs" />
+    <Compile Include="Models\TeacherAccount.cs" />
+    <Compile Include="Models\TeacherAssistant.cs" />
+    <Compile Include="Models\TeacherNotification.cs" />
+    <Compile Include="Models\TeacherPushToken.cs" />
+    <Compile Include="Models\TeacherSubject.cs" />
+    <Compile Include="Models\TeacherTransaction.cs" />
+    <Compile Include="Models\TermAndCondition.cs" />
+    <Compile Include="Models\Track.cs" />
+    <Compile Include="Models\TrackPromotionCourse.cs" />
+    <Compile Include="Models\TrackPromotion.cs" />
+    <Compile Include="Models\TrackSubscription.cs" />
+    <Compile Include="Models\UserDeviceLog.cs" />
+    <Compile Include="Models\VideoQuestion.cs" />
+    <Compile Include="Models\Views\CountryStatistics.cs" />
+    <Compile Include="Models\Views\HomeStatistics.cs" />
+    <Compile Include="Models\Views\StudentPackageView.cs" />
+    <Compile Include="Models\Views\StudentLiveView.cs" />
+    <Compile Include="Models\Views\StudentCourseView.cs" />
+    <Compile Include="Models\Views\StudentExamView.cs" />
+    <Compile Include="Models\Views\StudentSubject.cs" />
+    <Compile Include="Models\Views\TeachersSubject.cs" />
+    <Compile Include="Models\Views\TopCourses.cs" />
+    <Compile Include="Models\Views\TopTeachers.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TollabContext.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperKotob.Admin.Core\Tollab.Admin.Core.csproj">
+      <Project>{1aeb7e4a-b03f-4760-be98-cc070e9e992a}</Project>
+      <Name>Tollab.Admin.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperKotob.Admin.Models\Tollab.Admin.Models.csproj">
+      <Project>{229d36a7-b263-462f-ba76-ee9022a9c1ce}</Project>
+      <Name>Tollab.Admin.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperKotob.Admin.WebProtector\Tollab.Admin.WebProtector.csproj">
+      <Project>{b0ccb42e-4cd6-48f4-a4cd-9451b8d9bdd6}</Project>
+      <Name>Tollab.Admin.WebProtector</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+</head>
+<style>
+    body {
+        margin-top: 25%;
+         background-image: url(/Content/photo_2019-09-05_15-11-19.jpg);
+        background-repeat: repeat-x;
+    }
+    .card {
+        width: 100%;
+        height: 100%;
+    }
+    .panel-title {
+         font-weight: bold;
+         font-size:larger;
+     }
+     
+    .checkbox.pull-right {
+        margin: 0;
+    }
+
+    .pl-ziro {
+        padding-left: 0px;
+    }
+</style>
+@using (Html.BeginForm("DoPayment", "PayMethods", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+ <input type="text" hidden name="PaymentKey" value="@ViewBag.PaymentKey" />
+<div class="container">
+     <div class="row cont" >
+        <div class="col-xs-12 col-md-4 card">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @{
+                        var PaymentKey = ViewBag.PaymentKey;
+                    }
+                    <a href="/PayMethods/DoPayment?PaymentKey=@PaymentKey" class="btn btn-success btn-lg btn-block">Charge Wallet</a>
+                    <a href="/PayMethods/BuyCourse?PaymentKey=@PaymentKey" class="btn btn-success btn-lg btn-block">Buy Course</a>
+                    <a href="/PayMethods/BuyTrack?PaymentKey=@PaymentKey" class="btn btn-success btn-lg btn-block">Buy Track</a>
+
+                    <div class="checkbox pull-right">
+                    </div>
+                </div>
+
+            </div>
+            @*<input type="submit" value="Go Payemnt" class="btn btn-success btn-lg btn-block" role="button" />*@
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+        </div>
+    </div>
+}

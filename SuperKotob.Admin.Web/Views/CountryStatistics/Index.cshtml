@@ -1,0 +1,216 @@
+﻿@model Tollab.Admin.Data.Models.Views.CountryStatistics
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="content" style="position:center">
+    <h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc"> @Model.Name @*<img src="~/dist/img/img_3logos.png" style="width:650px" />*@ </h2>
+    <br />
+    <!-- Info boxes -->
+    <div class="row">
+        @*<div class="clearfix visible-sm-block"></div>*@
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><img src="~/dist/img/icon_su_parent_selected.png" /></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Student Count</span>
+                    <span class="info-box-number">@Model.StudentCount</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><img src="~/dist/img/icon_su_teacher_selected.png" />  </span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Teachers Count</span>
+                    <span class="info-box-number">@Model.TeachersCount</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-book"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Courses Count</span>
+                    <span class="info-box-number">@Model.CourseCount</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Income</span>
+                    <span class="info-box-number">@Model.TotalIncome</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Instractor Income</span>
+                    <span class="info-box-number">@Model.InstractorIncome</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><img src="~/dist/img/icon_su_parent_selected.png" /></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Student Count In This Month</span>
+                    <span class="info-box-number">@Model.StudentCountInThisMonth</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><img src="~/dist/img/icon_su_teacher_selected.png" />  </span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Teachers Count In This Month</span>
+                    <span class="info-box-number">@Model.TeacherCountInThisMonth</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-book"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Courses Count In This Month</span>
+                    <span class="info-box-number">@Model.CourseCountInThisMonth</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Income In This Month</span>
+                    <span class="info-box-number">@Model.TotalIncomeInThisMonth</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Instractor Income In This Month</span>
+                    <span class="info-box-number">@Model.InstractorIncomeInThisMonth</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green-active"><i class="glyphicon glyphicon-flag"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Top Teachers</span>
+                    <a href="/TopTeachers/ShowTop?CountryId=@Model.Id" style="color:green" class="info-box-text ">To Teachers</a>
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green-active"><i class="glyphicon glyphicon-flag"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Top Courses</span>
+                    <a href="/TopCourses/ShowTop?CountryId=@Model.Id" style="color:green" class="info-box-text ">Top Courses</a>
+
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+
+                <div class="info-box-content">
+                    <span class="">Profit With Student Credit</span>
+                    <span class="info-box-number">@Model.ProfitWithStudentCredit</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Student Credit</span>
+                    <span class="info-box-number">@Model.StudentCredit</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua-active"><i class="glyphicon glyphicon-bitcoin"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Profit</span>
+                    <span class="info-box-number">@Model.TotalProfit</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+
+
+    </div>
+    <br />
+    @*<img src="~/dist/img/logo_txt_img.png" style="display: block;margin-left: auto;margin-right: auto;width:400px " />*@
+</section>

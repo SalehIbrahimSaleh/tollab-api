@@ -1,0 +1,119 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<PromoCode>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "PromoCodes";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">PromoCodes</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "PromoCodes",
+        SingleName = "PromoCode",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Pattern", "Id", "Pattern")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/PromoCodes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+
+         new GridField("PromoCodeText", "Id", "PromoCode")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/PromoCodes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+
+
+       new GridField("Count", "Id", "Count")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/PromoCodes/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+
+       new GridField("UsedCount", "Id", "Used Count")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/PromoCodes/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+
+         new GridField("PromoCodeValue", "Id", "PromoCode Value")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/PromoCodes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+           new GridField("Active", "Id", "Active")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/PromoCodes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+          new GridField("ExpirationDate", "Id", "Expiration Date")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/PromoCodes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+        }
+    });
+}
+<style>
+    
+    #det {
+        display: none;
+    }
+
+   
+
+    #txt {
+        display: none;
+    }
+</style>

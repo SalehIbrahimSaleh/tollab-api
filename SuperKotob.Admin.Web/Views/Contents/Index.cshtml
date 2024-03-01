@@ -1,0 +1,126 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Content>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Content";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Content</h2>
+
+@{
+  
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Contents",
+        SingleName = "Content",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        
+           new GridField("OrderNumber", "Id", "Order Number")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Contents/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+         new GridField("Name", "Id", "English Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Contents/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("NameLT", "Id", "Arabic Name")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Contents/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        }
+        ,  new GridField("Duration", "Id", "Duration")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Contents/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+           new GridField("Group.GroupCourse", "GroupId", "Group")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Groups/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["GroupId"]
+            }
+        },
+            new GridField("ContentType.Name", "ContentTypeId", "ContentType")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/ContentTypes/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["ContentTypeId"]
+            }
+        },
+             new GridField("IsFree", "Id", "IsFree")
+       {
+            Filter = new GridFieldFilter()
+            {
+
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Contents/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+
+              new GridField("Youtube Link","YoutubeLink","Go To Youtube","",true )
+            {
+                Filter = new GridFieldFilter()
+                {
+                    Type = GridFieldFilterType.HyperLink
+
+
+                }
+            },
+            new GridField("Content Path","NewPath","Go To Link","",true )
+            {
+                Filter = new GridFieldFilter()
+                {
+                    Type = GridFieldFilterType.HyperLink
+
+
+                }
+            },
+        }
+    });
+}

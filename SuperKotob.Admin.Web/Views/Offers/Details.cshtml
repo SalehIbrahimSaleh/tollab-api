@@ -1,0 +1,58 @@
+﻿@model Tollab.Admin.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Offer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.CourseTrack)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.CourseTrack)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tilte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tilte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TitleLT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TitleLT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndOfferDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndOfferDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

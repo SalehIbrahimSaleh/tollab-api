@@ -1,0 +1,173 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Live>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Live";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Lives</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Lives",
+        SingleName = "Live",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+         new GridField("OrderNumber", "Id", "Order Number")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Lives/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        
+         new GridField("LiveName", "Id", "Live name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Lives/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+       
+         new GridField("CurrentPrice", "Id", "Current Cost")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+             new GridField("OldPrice", "Id", "Previous Cost")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+        new GridField("Duration", "Id", "Duration")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+           new GridField("LiveDate", "Id", "Live start time")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+            new GridField("LiveAppearanceDate", "Id", "Live Appearance time")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/Lives/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+             new GridField("Track.TrackSubject", "TrackId", "Track")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Tracks/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["TrackId"]
+
+            }
+        },
+              new GridField("Course.Name", "CourseId", "Course")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Courses/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["CourseId"]
+
+            }
+        },
+      
+       new GridField("HostURL", "Id", "Host URL")
+                         {
+                             Filter = new GridFieldFilter()
+                             {
+                                 Type = GridFieldFilterType.WithoutSearch
+                             }
+                         }
+            ,
+       new GridField("JoinURL", "Id", "Join URL")
+                         {
+                             Filter = new GridFieldFilter()
+                             {
+                                 Type = GridFieldFilterType.WithoutSearch
+                             }
+                         },
+             new GridField("Image",  "http://tollab.azurewebsites.net/ws/Images/LiveImages/", "Image",1){
+                Filter = new GridFieldFilter()
+                {
+                     Type = GridFieldFilterType.Photo,
+                }
+            },
+             new GridField("Content",
+                     new List<GridField>
+                     {
+
+                         new GridField("Content","VideoURL","Go To Video","",true )
+                         {
+                             Filter = new GridFieldFilter()
+                             {
+                                 Type = GridFieldFilterType.HyperLink
+                             }
+                         },
+                          new GridField("Content","Image","No Video Yet","",true )
+                         {
+                             Filter = new GridFieldFilter()
+                             {
+                                 Type = GridFieldFilterType.HyperLink
+                             }
+                         }
+                     } , string.Empty){
+                    Filter = new GridFieldFilter()
+                    {
+                        Type = GridFieldFilterType.ChooseFromMultibleFields,
+                    }
+                }
+        }
+    });
+}

@@ -1,0 +1,122 @@
+﻿@model IEnumerable<SuperKotob.Admin.Web.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc"> Admins</h2>
+
+<style>
+    /** {
+        box-sizing: border-box;
+    }*/
+
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+            }
+</style>
+<hr />
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for any thing.." title="Type in a name">
+<a href="/Account/Register" class="btn btn-primary" id="crt"><i class="fa fa-plus" aria-hidden="true"></i> New</a>
+
+<table class="table table-striped" id="myTable">
+    <tr>
+        <th>
+            @Html.DisplayName("First Name")
+        </th>
+        <th>
+            @Html.DisplayName("Last Name")
+        </th>
+
+        <th>
+            @Html.DisplayName("Email")
+        </th>
+        <th>
+            @Html.DisplayName("Phone Number")
+        </th>
+        <th>
+            @Html.DisplayName("Edit|Delete")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            >
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+@section scripts {
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, x, i, tds;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                tds = tr[i].getElementsByTagName("td");
+                for (x = 0; x < tds.length; x++) {
+                    td = tds[x];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        }
+                        else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+
+            }
+
+        }
+    </script>
+}

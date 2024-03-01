@@ -1,0 +1,109 @@
+﻿@model Tollab.Admin.Data.Models.Exam
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Edit Exam</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" id="StartDate" required value="@Model.StartDate.ToString("yyyy-MM-ddTHH:mm:ss")" name="StartDate" class="form-control">
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" id="EndDate" required value="@Model.EndDate.Value.ToString("yyyy-MM-ddTHH:mm:ss")" name="EndDate" class="form-control">
+            @Html.ValidationMessageFor(model => model.EndDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.DeadlineDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="datetime-local" id="DeadlineDate" required value="@Model.DeadlineDate.ToString("yyyy-MM-ddTHH:mm:ss")" name="DeadlineDate" class="form-control">
+            @Html.ValidationMessageFor(model => model.DeadlineDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(model => model.ExamTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" id="ExamTypeId" value="@Model.ExamTypeId" name="ExamTypeId" class="form-control">
+            @Html.ValidationMessageFor(model => model.ExamTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" id="CourseId" value="@Model.CourseId" name="CourseId" class="form-control">
+            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" id="Duration" value="@Model.Duration.ToString()" name="Duration" class="form-control">
+        </div>
+    </div>
+    <div class="form-group" style="display:none;">
+        @Html.LabelFor(model => model.LockCourseContent, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" id="LockCourseContent" value="@Model.LockCourseContent.ToString()" name="LockCourseContent" class="form-control">
+            @Html.ValidationMessageFor(model => model.LockCourseContent, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @{
+        List<SelectListItem> listItemsWaterMark = new List<SelectListItem>();
+
+
+        listItemsWaterMark.Add(new SelectListItem
+        {
+            Text = "False",
+            Value = "false",
+
+        });
+        listItemsWaterMark.Add(new SelectListItem
+        {
+            Text = "True",
+            Value = "true"
+        });
+    }
+    <div class="form-group">
+        @Html.LabelFor(model => model.Publish, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Publish, listItemsWaterMark, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Publish, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+   
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

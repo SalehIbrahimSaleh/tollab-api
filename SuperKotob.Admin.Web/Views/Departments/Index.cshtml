@@ -1,0 +1,84 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Department>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Department";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Departments</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Departments",
+        SingleName = "Department",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("DepartmentSubCategory", "Id", "Department-SubCategory")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Departments/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+         new GridField("Name", "Id", "English Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Departments/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("NameLT", "Id", "Arabic Name")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Departments/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+           new GridField("SubCategory.SubCategoryCategory", "SubCategoryId", "SubCategory-Category")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/SubCategories/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["SubCategoryId"]
+
+            }
+        },
+       new GridField("Subjects","Id","Show Subjects","/Subjects?DepartmentId=",true )
+      {
+      Filter = new GridFieldFilter()
+      {
+          Type = GridFieldFilterType.HyperLink
+      }
+      },
+
+        }
+    });
+}

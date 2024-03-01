@@ -1,0 +1,244 @@
+﻿@model Tollab.Admin.Data.Models.Track
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("EditWithImage", "Tracks", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 style="text-align:center;color:red;">@ViewBag.Message</h2>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.TrackCode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TrackCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TrackCode, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NameLT, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NameLT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NameLT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+
+
+            listItems.Add(new SelectListItem
+            {
+                Text = "False",
+                Value = "false",
+
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "True",
+                Value = "true"
+            });
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.BySubscription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.BySubscription, listItems, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BySubscription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubscriptionCurrentPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubscriptionCurrentPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubscriptionCurrentPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubscriptionOldPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubscriptionOldPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubscriptionOldPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubscriptionDuration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubscriptionDuration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SubscriptionDuration, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeacherId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="TeacherId"
+                       name="TeacherId"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Teachers/autocomplete"
+                       dataPreSelectedIds="@Model.TeacherId"
+                       dataMaxItems="1" />
+                @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="SubjectId"
+                       name="SubjectId"
+                       data-grid-filter-field="SubjectDepartment"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Subjects/autocomplete"
+                       dataPreSelectedIds="@Model.SubjectId"
+                       dataMaxItems="1" />
+                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Track Image Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <img src="http://tollab.azurewebsites.net/ws/Images/TeacherSubjectImages/@Model.Image" style="width:45%;height:100%;" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Track Image Url", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="http://tollab.azurewebsites.net/ws/Images/TeacherSubjectImages/@Model.Image">download</a>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.ImageHomeCover, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ImageHomeCover, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ImageHomeCover, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageHomeCover, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFileHomeCover" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.ImageHomeCover, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Home Cover Image Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <img src="http://tollab.azurewebsites.net/ws/Images/TeacherSubjectImages/@Model.ImageHomeCover" style="width:45%;height:100%;" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Home Cover Image Url", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="http://tollab.azurewebsites.net/ws/Images/TeacherSubjectImages/@Model.ImageHomeCover">download</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SKUNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SKUNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SKUNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            List<SelectListItem> listItemsWaterMark = new List<SelectListItem>();
+
+
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "False",
+                Value = "false",
+
+            });
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "True",
+                Value = "true"
+            });
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShowWaterMark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ShowWaterMark, listItemsWaterMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ShowWaterMark, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IsActive, listItemsWaterMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.WhatsupGroupLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WhatsupGroupLink, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.WhatsupGroupLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

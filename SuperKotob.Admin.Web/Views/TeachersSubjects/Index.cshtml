@@ -1,0 +1,100 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TeachersSubject>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models.Views
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Teacher";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Teacher Subject</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TeachersSubjects",
+        SingleName = "TeachersSubject",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("SubjectDepartment", "Id", "SubjectDepartment")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/StudentSubjects/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+         new GridField("Name", "Id", "English Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/StudentSubjects/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("NameLT", "Id", "Arabic Name")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/StudentSubjects/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+             new GridField("Teacher.Name", "TeacherId", "Teacher")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Teachers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["TeacherId"]
+
+            }
+        },
+           new GridField("Department.DepartmentSubCategory", "DepartmentId", "Department-SubCategory")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Departments/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["DepartmentId"]
+
+            }
+        },
+             new GridField("Image",  "http://tollab.azurewebsites.net/ws/Images/SubjectImages/", "Image",1){
+                Filter = new GridFieldFilter()
+                {
+                     Type = GridFieldFilterType.Photo,
+                }
+            },
+       new GridField("Tracks","Id","Show Tracks","/Tracks?SubjectId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+
+        }
+    });
+}

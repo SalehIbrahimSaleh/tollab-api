@@ -1,0 +1,112 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<StudentExam>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "StudentExams";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Exams</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "StudentExams",
+        SingleName = "StudentExam",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Exam.Name", "ExamId", "Exam")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Exams/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamId"]
+            }
+        }
+        ,
+         new GridField("Student.Name", "StudentId", "Student")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+            new GridField("SolveStatus.Name", "SolveStatusId", "Solve Status")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/SolveStatus/autocomplete",
+            PreSelectedIds = Model.RequestInputs["SolveStatusId"]
+            }
+        }
+        ,
+        new GridField("TotalScore", "Id", "Total Score")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/StudentExams/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+     new GridField("TeacherAssistant.Name", "TeacherAssistantId", "Teacher Assistant")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TeacherAssistants/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["TeacherAssistantId"]
+
+            }
+        },
+ 
+        new GridField("Student Answer","Id","Show Answer","/StudentAnswers?StudentExamId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+
+        }
+    });
+}
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+    #crt {
+        display: none;
+    }
+
+    #txt {
+        display: none;
+    }
+</style>

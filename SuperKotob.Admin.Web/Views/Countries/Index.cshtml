@@ -1,0 +1,121 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<Country>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Country";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Countries</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "Countries",
+        SingleName = "Country",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Name", "Id", "English Name")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+
+        new GridField("NameLT", "Id", "Arabic Name")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+         new GridField("Code", "Id", "Code")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+  new GridField("LengthPhoneNumebr", "Id", "LengthPhoneNumebr")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+  new GridField("Currency", "Id", "English Currency")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+   new GridField("CurrencyLT", "Id", "Arabic Currency")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        , new GridField("CountryCode", "Id", "Country label")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Countries/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+
+                 new GridField("Flag",  "http://tollab.azurewebsites.net/ws/Images/Flags/", "Flag",1){
+                Filter = new GridFieldFilter()
+                {
+                     Type = GridFieldFilterType.Photo,
+                }
+            },
+                      new GridField("Sections","Id","Show Sections","/Sections?CountryId=",true )
+              {
+              Filter = new GridFieldFilter()
+              {
+                  Type = GridFieldFilterType.HyperLink
+
+
+              }
+      },
+        }
+    });
+}

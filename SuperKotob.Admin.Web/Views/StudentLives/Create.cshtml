@@ -1,0 +1,60 @@
+﻿@model Tollab.Admin.Data.Models.StudentLive
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Lives</h2>
+<h2 style="text-align:center;">برجاء العلم أنه لايتم احتساب اي تكاليف علي الطالب او للمعلم عند اضافة الدورات للطالب من هنا </h2>
+
+@using (Html.BeginForm())
+{
+<h2 style="text-align:center;color:red;">@ViewBag.Error</h2>
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="StudentId"
+                   name="StudentId"
+                   data-grid-filter-field="Phone"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Students/autocomplete"
+                   dataPreSelectedIds="@Model.StudentId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LiveId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="LiveId"
+                   name="LiveId"
+                   data-grid-filter-field="LiveName"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Lives/autocomplete"
+                   dataPreSelectedIds="@Model.LiveId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.LiveId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+ 
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

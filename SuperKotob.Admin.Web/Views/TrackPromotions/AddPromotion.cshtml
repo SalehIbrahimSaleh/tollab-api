@@ -1,0 +1,213 @@
+﻿@model Tollab.Admin.Data.Models.TrackPromotion
+
+@{
+    ViewBag.Title = "Create Poromotion";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Create Track Promotion</h2>
+<link href="~/plugins/ListBoxMultiSelect/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="~/plugins/ListBoxMultiSelect/js/listbox.js"></script>
+<style>
+    #Description {
+        height: 150px;
+        max-width: 100%;
+        min-width: 100%;
+    }
+</style>
+@using (Html.BeginForm("CreateWithImage", "TrackPromotions", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 style="text-align:center;color:red;">@ViewBag.Message</h2>
+
+    <div class="form-horizontal">
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Promotion Name:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2" for="TrackId">Track Name:</label>
+
+            <div class="col-md-10">
+                @{ var getTrack = ViewBag.TrackData as IEnumerable<Tollab.Admin.Data.Models.Track>;
+                    <label>@getTrack.FirstOrDefault().Name</label>
+                }
+                <input type="text"
+                       id="TrackId"
+                       name="TrackId"
+                       value="@getTrack.FirstOrDefault().Id" style="display:none;" />
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label class="control-label col-md-2" for="Name">Select Courses</label>
+                <div class="col-md-10">
+                    <div class="container_listbox">
+                        <div class="select_1">
+
+                            <select id="select1" name="select1[]" multiple="multiple">
+                                @{
+                                    var getlistCourses = ViewBag.CoursesData as IEnumerable<Tollab.Admin.Data.Models.Course>;
+
+                                    foreach (var course in getlistCourses)
+                                    {
+                                        <option value="@course.Id">@course.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+
+                        <div class="operadores">
+                            <div class="add_all" onclick="add_all('select1','select2',false,'values_selecteds_listbox');"></div>
+                            <div class="add" onclick="add('select1','select2',false,'values_selecteds_listbox');"></div>
+                            <div class="remove" onclick="add('select2','select1',true,'values_selecteds_listbox');"></div>
+                            <div class="remove_all" onclick="add_all('select2','select1',true,'values_selecteds_listbox');"></div>
+                        </div>
+                        <div class="select_2">
+
+                            <select id="select2" name="select2[]" multiple="multiple"></select>
+                        </div>
+
+                    </div>
+                    <div style="display:none;">
+                        @Html.EditorFor(model => model.CoursesConcat, new { htmlAttributes = new { @class = "form-control", @id = "values_selecteds_listbox" } })
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="showIsFullyCourseOption" style="display:none;">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label>تستخدم هذه الخاصيه حال طلب اضافة الكورسات الجديده للعرض اتوماتيك</label>
+                    @Html.CheckBoxFor(m => m.IsPromoFullyUpdateByNewCourses)
+                    @Html.LabelFor(m => m.IsPromoFullyUpdateByNewCourses)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromotionStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" id="PromotionStartDate" name="PromotionStartDate" required class="form-control">
+                @Html.ValidationMessageFor(model => model.PromotionStartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromotionEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" id="PromotionEndDate" name="PromotionEndDate" required class="form-control">
+                @Html.ValidationMessageFor(model => model.PromotionEndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            List<SelectListItem> listItemsWaterMark = new List<SelectListItem>();
+
+
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "Percentage",
+                Value = "Percentage",
+
+            });
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "Fixed",
+                Value = "Fixed"
+            });
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DiscountType, listItemsWaterMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DiscountType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiscountValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        @{
+            List<SelectListItem> listIsShow = new List<SelectListItem>();
+
+
+            listIsShow.Add(new SelectListItem
+            {
+                Text = "True",
+                Value = "true",
+
+            });
+            listIsShow.Add(new SelectListItem
+            {
+                Text = "False",
+                Value = "false"
+            });
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsShowInMobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IsShowInMobile, listIsShow, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsShowInMobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group" id="showIsFullyCourseOption" style="display:none;">
+            @Html.LabelFor(model => model.IsPromoFullyUpdateByNewCourses, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IsPromoFullyUpdateByNewCourses, listIsShow, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsPromoFullyUpdateByNewCourses, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<style>
+    #edt {
+        display: none;
+    }
+
+      
+    #txt {
+        display: none;
+    }
+</style>

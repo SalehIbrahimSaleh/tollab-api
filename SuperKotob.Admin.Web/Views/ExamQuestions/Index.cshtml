@@ -1,0 +1,128 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<ExamQuestion>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "ExamQuestions";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Exam Questions</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "ExamQuestions",
+        SingleName = "ExamQuestion",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("Exam.Name", "ExamId", "Exam")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Exams/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamId"]
+            }
+        }
+        ,
+         new GridField("ExamQuestionType.Name", "ExamQuestionTypeId", "Question Type")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/ExamQuestionTypes/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamQuestionTypes"]
+            }
+        }
+        ,
+            new GridField("Title", "Id", "Title")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/ExamQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        new GridField("Degree", "Id", "Degree")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/ExamQuestions/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+     new GridField("OrderNumber", "Id", "Order Number")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/ExamQuestions/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+                  new GridField("Image",  "http://tollab.azurewebsites.net/ws/Images/ExamImages/", "Image",1){
+                Filter = new GridFieldFilter()
+                {
+                     Type = GridFieldFilterType.Photo,
+                }
+            },
+
+             new GridField("File Path","NewPath","Go To File","",true )
+        {
+            Filter = new GridFieldFilter()
+            {
+                Type = GridFieldFilterType.HyperLink
+
+
+            }
+        },
+
+        new GridField("Answers","Id","Show Answers","/ExamAnswers?ExamQuestionId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+
+        }
+    });
+}
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+    #crt {
+        display: none;
+    }
+
+    #txt {
+        display: none;
+    }
+</style>

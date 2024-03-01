@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tollab.Admin</RootNamespace>
+    <AssemblyName>Tollab.Admin</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Jil, Version=2.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Jil.2.15.0\lib\net45\Jil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="jose-jwt, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\jose-jwt.2.0.1\lib\net40\jose-jwt.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.1.0.0\lib\net451\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.1.0.0\lib\net451\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.1.0.0\lib\net451\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.1.0.0\lib\net451\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Nexmo.Api, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nexmo.Csharp.Client.2.1.2\lib\net461\Nexmo.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PushSharp.Amazon, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Amazon.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Blackberry, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Blackberry.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Firefox, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Firefox.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Google, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Windows, Version=4.0.10.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <HintPath>..\packages\PushSharp.4.0.10\lib\net45\PushSharp.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.4.0\lib\net46\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.3.2.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sigil.4.7.0\lib\net45\Sigil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=4.4.2.472, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.2\lib\net45\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiMessage.cs" />
+    <Compile Include="ApiRequest.cs" />
+    <Compile Include="Base\BaseRepository.cs" />
+    <Compile Include="Base\BaseService.cs" />
+    <Compile Include="UseCases\Categories\CategoryRepository.cs" />
+    <Compile Include="UseCases\ContactUs\ContactUsRepository.cs" />
+    <Compile Include="UseCases\Contents\ContentRepository.cs" />
+    <Compile Include="UseCases\CourseDepartments\CourseDepartmentRepository.cs" />
+    <Compile Include="UseCases\Courses\CourseRepository.cs" />
+    <Compile Include="UseCases\Departments\DepartmentRepository.cs" />
+    <Compile Include="UseCases\DisableReasons\DisableReasonRepository.cs" />
+    <Compile Include="UseCases\ExamAnswers\ExamAnswerRepository.cs" />
+    <Compile Include="UseCases\ExamQuestions\ExamQuestionRepository.cs" />
+    <Compile Include="UseCases\Exams\ExamRepository.cs" />
+    <Compile Include="UseCases\Favourites\FavouriteRepository.cs" />
+    <Compile Include="UseCases\Groups\GroupRepository.cs" />
+    <Compile Include="UseCases\LiveAttachments\LiveAttachmentRepository.cs" />
+    <Compile Include="UseCases\LiveRespository.cs" />
+    <Compile Include="UseCases\Offers\OfferRepository.cs" />
+    <Compile Include="UseCases\OfflinePackages\OfflinePackageRepository.cs" />
+    <Compile Include="UseCases\PaymentMethodTypes\PaymentMethodTypeRepository.cs" />
+    <Compile Include="UseCases\Replies\ReplyRepository.cs" />
+    <Compile Include="UseCases\Sections\SectionRepository.cs" />
+    <Compile Include="UseCases\StudentAnswers\StudentAnswerRepository.cs" />
+    <Compile Include="UseCases\StudentPackages\StudentPackageRepository.cs" />
+    <Compile Include="UseCases\StudentLives\StudentLiveRepository.cs" />
+    <Compile Include="UseCases\StudentCourses\StudentCourseRepository.cs" />
+    <Compile Include="UseCases\StudentDepartments\StudentDepartmentRepository.cs" />
+    <Compile Include="UseCases\StudentExams\StudentExamRepository.cs" />
+    <Compile Include="UseCases\StudentNotifications\StudentNotificationRepository.cs" />
+    <Compile Include="UseCases\StudentPromocodes\StudentPromocodeRepository.cs" />
+    <Compile Include="UseCases\StudentSubjects\StudentSubjectsRepository.cs" />
+    <Compile Include="UseCases\Students\StudentRepository.cs" />
+    <Compile Include="UseCases\StudentTransactions\StudentTransactionRepository.cs" />
+    <Compile Include="UseCases\SubCategories\SubCategoryRepository.cs" />
+    <Compile Include="UseCases\Subjects\SubjectRepository.cs" />
+    <Compile Include="UseCases\SystemAdmins\SystemAdminRepository.cs" />
+    <Compile Include="UseCases\SystemNotifications\SystemNotificationRepository.cs" />
+    <Compile Include="UseCases\TeacherAccounts\TeacherAccountRepository.cs" />
+    <Compile Include="UseCases\TeacherNotifications\TeacherNotificationRepository.cs" />
+    <Compile Include="UseCases\TeachersSubjects\TeachersSubjectRepository.cs" />
+    <Compile Include="UseCases\TeacherSubjects\TeacherSubjectsRepository.cs" />
+    <Compile Include="UseCases\Teachers\TeacherRepository.cs" />
+    <Compile Include="UseCases\TeacherTransactions\TeacherTransactionRepository.cs" />
+    <Compile Include="UseCases\TopCourse\TopCoursesRepository.cs" />
+    <Compile Include="UseCases\TopCourse\TopCoursesService.cs" />
+    <Compile Include="UseCases\TopTeachers\TopTeachersRepository.cs" />
+    <Compile Include="UseCases\TopTeachers\TopTeachersService.cs" />
+    <Compile Include="UseCases\TrackPromotionCourses\TrackPromotionCoursesRepository.cs" />
+    <Compile Include="UseCases\TrackPromotions\TrackPromotionRepository.cs" />
+    <Compile Include="UseCases\TrackSubscriptions\TrackSubscriptionRepository.cs" />
+    <Compile Include="UseCases\Tracks\TrackRepository.cs" />
+    <Compile Include="UseCases\VideoQuestions\VideoQuestionRepository.cs" />
+    <Compile Include="Utils\Helpers\DateHelper.cs" />
+    <Compile Include="Utils\Mapping\IEntityMapper.cs" />
+    <Compile Include="Utils\Sms\EmptySmsService.cs" />
+    <Compile Include="Utils\Sms\NexmoSmsService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Configuration\AppConfigurations.cs" />
+    <Compile Include="Utils\Configuration\AppUrlConfigurationValueAccessor.cs" />
+    <Compile Include="Utils\Configuration\ConfigurationService.cs" />
+    <Compile Include="Utils\Configuration\ConfigurationValueAccessorFactory.cs" />
+    <Compile Include="Utils\DI\AppRegistry.cs" />
+    <Compile Include="Utils\DI\DependencyContainerFactory.cs" />
+    <Compile Include="Utils\DI\StaticDependencyContainerScope.cs" />
+    <Compile Include="Utils\DI\StructureMapContainerWrapper.cs" />
+    <Compile Include="Utils\Logging\SeriLogger.cs" />
+    <Compile Include="Utils\Mapping\AutoDataMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SuperKotob.Admin.Core\Tollab.Admin.Core.csproj">
+      <Project>{1aeb7e4a-b03f-4760-be98-cc070e9e992a}</Project>
+      <Name>Tollab.Admin.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperKotob.Admin.Data\Tollab.Admin.Data.csproj">
+      <Project>{8b2ec62f-ee53-4e46-95e8-0676dcd6e853}</Project>
+      <Name>Tollab.Admin.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperKotob.Admin.Models\Tollab.Admin.Models.csproj">
+      <Project>{229d36a7-b263-462f-ba76-ee9022a9c1ce}</Project>
+      <Name>Tollab.Admin.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SuperKotob.Admin.WebProtector\Tollab.Admin.WebProtector.csproj">
+      <Project>{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}</Project>
+      <Name>Tollab.Admin.WebProtector</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

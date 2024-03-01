@@ -1,0 +1,96 @@
+﻿@model SuperKotob.Admin.Web.Models.GridModel
+@{
+    var paging = Model.PagingMeta;
+    var fromItemNumber = ((paging.Page - 1) * paging.PageSize) + 1;
+    var toItemNumber = fromItemNumber + paging.PageSize;
+    var itemsCount = paging.TotalCount;
+    var currentPage = paging.Page;
+    var pagerPagesCount = paging.MaxPage;//Math.Min(10, paging.MaxPage - paging.Page);
+    var prevEnabled = paging.Page > 1;
+    var prevNumber = 1;
+    var nextEnabled = paging.Page < paging.MaxPage;
+    var nextNumber = paging.MaxPage;
+    var baseUrl = "/" + (Model.PluralName ?? "").ToLower() + "?";
+    var disabledpage = currentPage + 1;
+    var next = currentPage + 1;
+    var prev = currentPage - 1;
+    var q = "";
+    foreach (var key in Request.QueryString.Keys)
+    {
+        if (Convert.ToString(key) != "page")
+        {
+            q += (string.IsNullOrWhiteSpace(q) ? "" : "&") + key + "=" + Request.QueryString[Convert.ToString(key)];
+        }
+    }
+    baseUrl += q;
+    var pagePrefix = string.IsNullOrWhiteSpace(q) ? "page=" : "&page=";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+            @if (itemsCount == 0)
+            {
+                @(@"no result for your search")
+            }
+            else
+            {
+                @(@"Showing "+fromItemNumber+" to "+ itemsCount + " of "+itemsCount+"")
+            }
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-right:300px;">
+    <div class="col-sm-12 col-sm-offset-3">
+        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+            <ul class="pagination">
+                <li class="paginate_button previous @(prevEnabled ? "" : "disabled")" id="example2_previous">
+
+                    <a @(prevEnabled ? Html.Raw("") : Html.Raw("onclick='return false;'")) href="@(baseUrl + pagePrefix+ prevNumber)" ar aria-controls="example2" data-dt-idx="0" tabindex="0">First</a>
+
+                </li>
+                <li class="paginate_button previous @(prevEnabled ? "" : "disabled")" id="example2_previous">
+
+                    <a @(prevEnabled ? Html.Raw("") : Html.Raw("onclick='return false;'")) href="@(baseUrl + pagePrefix+ prev)" ar aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>
+
+                </li>
+
+
+
+                @for (var i = 1; i <= pagerPagesCount; i++)
+                {
+
+                    var nextPageNumber = 0 + i;
+                    if (nextPageNumber == currentPage)
+                    {
+                        <li class="paginate_button active">
+                            <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">@currentPage</a>
+                        </li>
+                    }
+                    else
+                    {
+
+                        <li class="paginate_button ">
+                            <a href="@(baseUrl +pagePrefix+nextPageNumber)" aria-controls="example2" data-dt-idx="2" tabindex="0">@nextPageNumber</a>
+                        </li>
+                    }
+
+                    @*<li class="paginate_button ">
+                            <a href="@(baseUrl +pagePrefix+nextPageNumber)" aria-controls="example2" data-dt-idx="2" tabindex="0">@nextPageNumber</a>
+                        </li>*@
+                }
+
+                <li class="paginate_button next @(nextEnabled ? "" : "disabled")" id="example2_next">
+                    <a @(nextEnabled ? Html.Raw("") : Html.Raw("onclick='return false;'")) href="@(baseUrl +pagePrefix+ next)" a aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a>
+                </li>
+
+                <li class="paginate_button next @(nextEnabled ? "" : "disabled")" id="example2_next">
+                    <a @(nextEnabled ? Html.Raw("") : Html.Raw("onclick='return false;'")) href="@(baseUrl +pagePrefix+ nextNumber)" a aria-controls="example2" data-dt-idx="7" tabindex="0">Last</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    onFilterChanged('page', @currentPage, true);
+</script>

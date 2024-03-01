@@ -1,0 +1,155 @@
+﻿using SuperMatjar.Core;
+using SuperMatjar.Data.Models;
+using SuperMatjar.Data.TransferObjects;
+using SuperMatjar.Utils.Payment;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using System;
+using SuperMatjar.Utils.Configuration;
+using SuperMatjar.BusinessServices;
+using Newtonsoft.Json;
+
+namespace SuperMatjar.Payment
+{
+    public class PayfortPaymentService : IPaymentService
+    {
+        CustomerCardService _customerCardService;
+        PayfortHttpClient _payfortClient;
+        IAppConfigurations _appConfigurations;
+
+        public PayfortPaymentService(
+            CustomerCardService customerService,
+            PayfortHttpClient payfortClient,
+            IAppConfigurations appConfigurations
+            )
+        {
+            _customerCardService = customerService;
+            _payfortClient = payfortClient;
+            _appConfigurations = appConfigurations;
+        }
+
+
+        public async Task<Dictionary<string, string>> Purchase(RequestInputs actionParams)
+        {
+
+            var appUrl = _appConfigurations.AppUrl.GetValue().TrimEnd('/');
+            var customerId = actionParams.GetValue<string>("customer_id");
+
+            var dic = new Dictionary<string, string>()
+            {
+                ["command"] = "PURCHASE",
+                ["access_code"] = "LcDyBFuLpBRASYrIcVjh",
+                ["merchant_identifier"] = "RCosLRqQ",              
+                ["return_url"] = appUrl + $"/api/payments/after-purchase/{customerId}",
+<<<<<<< HEAD
+=======
+                //["check_3ds"] = "NO",
+>>>>>>> 44f5f8aff50596eb499bd01057dfbb0746140bd9
+                ["merchant_reference"] = Guid.NewGuid().ToString(),
+                ["language"] = "en",
+                ["currency"] = "QAR",
+                ["amount"] = "10"
+                //["customer_name"] = "ahmed",
+                //["card_security_code"] = "123",
+                //["return_url"] = "http://localhost:10723?r=2",
+            };
+
+
+            AddIfHasValue(dic, actionParams,
+                "command",
+                "access_code",
+                "merchant_identifier",
+                "return_url",
+                "check_3ds", 
+                "merchant_reference",
+                "language", 
+                "currency", 
+                "amount", 
+                "token_name", 
+                "customer_email",  
+                "card_security_code");
+
+            var response = await _payfortClient.PostJsonAsync(dic);
+            var data = JsonConvert.DeserializeObject<Dictionary<string, string>>(response);
+
+            return data;
+        }
+
+        private void AddIfHasValue(Dictionary<string, string> dic, RequestInputs actionParams, params string[] keys)
+        {
+            foreach (var key in keys)
+            {
+                var value = actionParams.GetValue(key, "");
+                if (!string.IsNullOrWhiteSpace(value))
+                    dic[key] = value;
+            }
+        }
+
+        public async Task<string> AfterPurchase(RequestInputs actionParams)
+        {
+            var dic = actionParams.ToDictionary();
+            var response = await _payfortClient.PostJsonAsync(dic);
+            return response;
+        }
+
+        public async Task<string> Register(CustomerCardRegisterDTO model)
+        {
+            var appUrl = _appConfigurations.AppUrl.GetValue().TrimEnd('/');
+
+            var dictionary = new Dictionary<string, string>()
+            {
+                ["service_command"] = "TOKENIZATION",
+                ["access_code"] = PayfortHttpClient.access_code,
+                ["merchant_identifier"] = PayfortHttpClient.merchant_identifier,
+                ["merchant_reference"] = Guid.NewGuid().ToString(),
+                ["language"] = "en",
+                ["expiry_date"] = model.ExpiryDate,
+                ["card_number"] = model.CardNumber,
+                ["card_security_code"] = model.SecurityCode,
+                ["card_holder_name"] = model.HolderName,
+                ["remember_me"] = "YES",
+                ["return_url"] = appUrl + $"/api/customercards/after-card-registration/{model.CustomerId}"
+            };
+
+            var x = await _payfortClient.PostFormsAsync(dictionary);
+            return x;
+        }
+
+        public async Task AfterCardRegistration(RequestInputs actionParams)
+        {
+            //var dic = await Purchase(actionParams);
+            var registerationDTO = new CustomerCardRegisterDTO()
+            {
+                CardNumber = actionParams.GetValue<string>("card_number"),
+                CustomerId = actionParams.GetValue("customer_id", default(long)),
+                ExpiryDate = actionParams.GetValue<string>("expiry_date"),
+                SecurityCode = actionParams.GetValue<string>("card_security_code"),
+                CardToken = actionParams.GetValue<string>("token_name")
+            };
+            if(actionParams.GetValue("response_code","") != "18000")
+            {
+                registerationDTO.ErrorText = JsonConvert.SerializeObject(actionParams.ToDictionary());
+            }
+            var response = await _customerCardService.Create(registerationDTO);
+            
+            //    [0]: {[response_code, 18000]    
+            //    [1]: {[card_number, 400555******0001]
+            //    [2]: {[card_holder_name, ahmed ali]}
+            //    [3]: {[signature, 6d9580a53badebf95291e0bd30f09c4598b6178bef28e54e4a5576fd7c4afef4]}
+            //    [4]: {[merchant_identifier, RCosLRqQ]}
+            //    [5]: {[expiry_date, 1705]}
+            //    [6]: {[access_code, LcDyBFuLpBRASYrIcVjh]}
+            //    [7]: {[language, en]}
+            //    [8]: {[service_command, TOKENIZATION]}
+            //    [9]: {[response_message, Success]}
+            //    [10]: {[merchant_reference, dcfa60e5-49df-4a86-935a-a0bcf94609e9]}
+            //    [11]: {[token_name, 4CD1008D3D1C6A6CE053321E320A4814]}
+            //    [12]: {[return_url, http://localhost:10723/api/payments/messages/123]}
+            //    [13]: {[remember_me, YES]}
+            //    [14]: {[card_bin, 400555]}
+            //    [15]: {[status, 18]}{
+        }
+
+    }
+}

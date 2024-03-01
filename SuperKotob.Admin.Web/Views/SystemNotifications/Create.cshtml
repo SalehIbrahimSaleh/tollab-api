@@ -1,0 +1,130 @@
+﻿@model Tollab.Admin.Data.Models.SystemNotification
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Create Notification</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.NotificationTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="NotificationTypeId"
+                       name="NotificationTypeId"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/NotificationTypes/autocomplete"
+                       dataPreSelectedIds="@Model.NotificationTypeId"
+                       dataMaxItems="1" />
+
+                @Html.ValidationMessageFor(model => model.NotificationTypeId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CountryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="CountryId"
+                   name="CountryId"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Countries/autocomplete"
+                   dataPreSelectedIds="@Model.CountryId"
+                   dataMaxItems="1" />
+
+            @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.SubjectId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="SubjectId"
+                       name="SubjectId"
+                       data-grid-filter-field="SubjectDepartment"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Subjects/autocomplete"
+                       dataPreSelectedIds="@Model.SubjectId"
+                       dataMaxItems="1" />
+
+                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.SubCategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="SubCategoryId"
+                       name="SubCategoryId"
+                       data-grid-filter-field="SubCategoryCategory"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/SubCategories/autocomplete"
+                       dataPreSelectedIds="@Model.SubCategoryId"
+                       dataMaxItems="1" />
+
+                @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="CourseId"
+                   name="CourseId"
+                   data-grid-filter-field="CourseTrack"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Courses/autocomplete"
+                   dataPreSelectedIds="@Model.CourseId"
+                   dataMaxItems="1" />
+
+            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrackId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="TrackId"
+                   name="TrackId"
+                   data-grid-filter-field="TrackSubject"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Tracks/autocomplete"
+                   dataPreSelectedIds="@Model.TrackId"
+                   dataMaxItems="1" />
+
+            @Html.ValidationMessageFor(model => model.TrackId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

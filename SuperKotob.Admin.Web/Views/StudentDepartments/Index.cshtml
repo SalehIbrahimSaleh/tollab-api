@@ -1,0 +1,74 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<StudentDepartment>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "StudentDepartment";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Department</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "StudentDepartments",
+        SingleName = "StudentDepartment",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+            new GridField("Student.Name", "StudentId", "Student")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+        new GridField("Department.DepartmentSubCategory", "DepartmentId", "Department")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Departments/autocomplete",
+            PreSelectedIds = Model.RequestInputs["DepartmentId"]
+            }
+        }
+        ,
+        }
+    });
+}
+
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+    #crt {
+        display: none;
+    }
+
+    #txt {
+        display: none;
+    }
+</style>

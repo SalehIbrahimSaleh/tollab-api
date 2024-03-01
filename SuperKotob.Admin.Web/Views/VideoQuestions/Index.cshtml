@@ -1,0 +1,141 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<VideoQuestion>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "VideoQuestions";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Video Questions</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "VideoQuestions",
+        SingleName = "VideoQuestion",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+                     new GridField("RepliesCount", "Id", "Replies")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/VideoQuestions/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+
+          new GridField("Student.Name", "StudentId", "Student")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+          new GridField("Content.Name", "ContentId", "Content")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Contents/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ContentId"]
+            }
+        }
+        ,
+             new GridField("Minute", "Id", "Minute")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/VideoQuestions/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+
+        new GridField("Question", "Id", "Question")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/VideoQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+
+     
+         new GridField("ViewMyAccount", "Id", "View My Account")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/VideoQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        },
+  new GridField("CreationDate", "Id", "Creation Date")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/VideoQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+ 
+    new GridField("Image",  "http://tollab.azurewebsites.net/ws/Images/QuestionImagesOrVoices/", "Image",1){
+        Filter = new GridFieldFilter()
+        {
+             Type = GridFieldFilterType.Photo,
+        }
+    },
+     new GridField("Voice","Voice","Get Voice","http://tollab.azurewebsites.net/ws/Images/QuestionImagesOrVoices/",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.Sound
+        }
+        },
+
+      new GridField("Replies","Id","Show Replies","/Replies?VideoQuestionId=",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.HyperLink
+        }
+        },
+
+        }
+    });
+}
+<style>
+
+
+    #crt {
+        display: none;
+    }
+
+
+</style>

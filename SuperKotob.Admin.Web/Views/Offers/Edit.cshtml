@@ -1,0 +1,307 @@
+﻿@model Tollab.Admin.Data.Models.Offer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Edit Offer</h2>
+
+@using (Html.BeginForm("EditWithImage", "Offers", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tilte, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Tilte, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Tilte, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TitleLT, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TitleLT, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TitleLT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OrderNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.OrderNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.OrderNumber, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group hidden">
+        @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden">
+        @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.VideoURL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group hidden">
+        @Html.LabelFor(model => model.VideoURI, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.VideoURI, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.VideoURI, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OfferContentTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.OfferContentTypeId, new List<SelectListItem> { new SelectListItem() { Text = "Video", Value = "1" }, new SelectListItem() { Text = "Image", Value = "2" }, new SelectListItem() { Text = "Link", Value = "3" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.TitleLT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div id="ImageContainer">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="imageFile" name="ImageFile" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Image Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <img src="http://tollab.azurewebsites.net/ws/Images/OffersImages/@Model.Image" style="width:45%;height:100%;" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Image Url", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="http://tollab.azurewebsites.net/ws/Images/OffersImages/@Model.Image">download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="VideoContainer">
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="videoFile" name="videoFile" class="form-control" accept="video/mp4,video/x-m4v,video/*">
+                @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Content Path", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="@Model.VideoURL">download</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoThumbnail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="VideoThumbnail" name="VideoThumbnail" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.VideoThumbnail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Video Thumbnail Preview", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <img src="http://tollab.azurewebsites.net/ws/Images/OffersImages/@Model.VideoThumbnail" style="width:45%;height:100%;" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Video Thumbnail Url", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-10">
+                    <a href="http://tollab.azurewebsites.net/ws/Images/OffersImages/@Model.VideoThumbnail">download</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.OfferLinkTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.OfferLinkTypeId, new List<SelectListItem> { new SelectListItem() { Text = "Course", Value = "1" }, new SelectListItem() { Text = "track", Value = "2" }, new SelectListItem() { Text = "External Link", Value = "3" } }, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.OfferLinkTypeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div id="LinkContainer">
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExternalLink, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="url" id="ExternalLink" value="@Model.ExternalLink" name="ExternalLink" class="form-control">
+                @Html.ValidationMessageFor(model => model.ExternalLink, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Countries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="Countries"
+                       name="CountriesString"
+                       data-grid-filter-name="Id"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Countries/autocomplete"
+                       dataPreSelectedIds="(@Model.Countries.Aggregate(
+     new  System.Text.StringBuilder(),
+     (current, next) => current.Append(current.Length == 0? "" : ", ").Append(next)) )"
+                       dataMaxItems="10" />
+                @Html.ValidationMessageFor(model => model.Countries, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div id="CourseContainer" class="form-group">
+        @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="CourseId"
+                   name="CourseId"
+                   data-grid-filter-field="CourseTrack"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Courses/autocomplete"
+                   dataPreSelectedIds="@Model.CourseId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div id="TrackContainer" class="form-group">
+        @Html.LabelFor(model => model.TrackId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text"
+                   id="TrackId"
+                   name="TrackId"
+                   data-grid-filter-field="Name"
+                   class="super-autocomplete"
+                   dataAutoCompleteUrl="/Tracks/autocomplete"
+                   dataPreSelectedIds="@Model.TrackId"
+                   dataMaxItems="1" />
+            @Html.ValidationMessageFor(model => model.TrackId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndOfferDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndOfferDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EndOfferDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section scripts{
+    <script>
+        $(document).ready(() => {
+            switch ("@Model.OfferContentTypeId")
+            {
+                case "VIDEO":
+                    $('#ImageContainer').hide();
+                    $('#VideoContainer').show();
+                    break;
+                case "IMAGE":
+                    $('#ImageContainer').show();
+                    $('#VideoContainer').hide();
+                    break;
+                case "":
+                    $('#ImageContainer').show();
+                    $('#VideoContainer').hide();
+            }
+
+
+            switch ("@Model.OfferLinkTypeId")
+            {
+                case "COURSE":
+                    $('#CourseContainer').show();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').hide();
+                    break;
+                case "TRACK":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').show();
+                    $('#LinkContainer').hide();
+                    break;
+                case "LINK":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').show();
+            }
+        })
+        $('#OfferContentTypeId').change((event) => {
+            var offerTypeId = $('#OfferContentTypeId').val();
+
+            $('#imageFile').val('');
+            $('#videoFile').val('');
+
+            switch (offerTypeId) {
+                case "1":
+                    $('#ImageContainer').hide();
+                    $('#VideoContainer').show();
+                    break;
+                case "2":
+                    $('#ImageContainer').show();
+                    $('#VideoContainer').hide();
+                    break;
+            }
+        });
+
+        $('#OfferLinkTypeId').change((event) => {
+            let offerTypeId = $('#OfferLinkTypeId').val();
+
+            $('#CourseId').val('');
+            $('#TrackId').val('');
+            $('#ExternalLink').val('');
+
+            switch (offerTypeId) {
+                case "1":
+                    $('#CourseContainer').show();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').hide();
+                    break;
+                case "2":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').show();
+                    $('#LinkContainer').hide();
+                    break;
+                case "3":
+                    $('#CourseContainer').hide();
+                    $('#TrackContainer').hide();
+                    $('#LinkContainer').show();
+            }
+        })
+
+
+    </script>
+}

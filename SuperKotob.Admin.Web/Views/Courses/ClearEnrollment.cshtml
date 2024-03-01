@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "ClearEnrollment";
+}
+
+<div class="jumbotron text-center">
+    <h1 class="display-3">Are you sure  to clear all enrollments for student courses?</h1>
+    <p class="lead">Enrollments Count :-  @ViewBag.StudentCourseCount </p>
+    <hr>
+
+    <p class="lead">
+        <a class="btn btn-primary btn-sm" href="~/Courses/ClearAllStudentCourses?CourseId=@ViewBag.CourseId">Clear All</a>
+    </p>
+</div>
+

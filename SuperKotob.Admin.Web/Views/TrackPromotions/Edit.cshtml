@@ -1,0 +1,131 @@
+﻿@model Tollab.Admin.Data.Models.TrackPromotion
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("EditWithImage", "Tracks", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <h2 style="text-align:center;color:red;">@ViewBag.Message</h2>
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrackId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text"
+                       id="TrackId"
+                       name="TrackId"
+                       data-grid-filter-field="Name"
+                       class="super-autocomplete"
+                       dataAutoCompleteUrl="/Tracks/autocomplete"
+                       dataPreSelectedIds="@Model.TrackId"
+                       dataMaxItems="1" />
+                @Html.ValidationMessageFor(model => model.TrackId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="ImageFile" class="form-control" accept=".jpg, .png, .jpeg|images/*">
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromotionStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" id="PromotionStartDate" name="PromotionStartDate" required class="form-control">
+                @Html.ValidationMessageFor(model => model.PromotionStartDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromotionEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="date" id="PromotionEndDate" name="PromotionEndDate" required class="form-control">
+                @Html.ValidationMessageFor(model => model.PromotionEndDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            List<SelectListItem> listItemsWaterMark = new List<SelectListItem>();
+
+
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "Percentage",
+                Value = "Percentage",
+
+            });
+            listItemsWaterMark.Add(new SelectListItem
+            {
+                Text = "Fixed",
+                Value = "Fixed"
+            });
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DiscountType, listItemsWaterMark, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DiscountType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountValue, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DiscountValue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiscountValue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        @{
+            List<SelectListItem> listIsShow = new List<SelectListItem>();
+
+
+            listIsShow.Add(new SelectListItem
+            {
+                Text = "True",
+                Value = "true",
+
+            });
+            listIsShow.Add(new SelectListItem
+            {
+                Text = "False",
+                Value = "false"
+            });
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsShowInMobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IsShowInMobile, listIsShow, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsShowInMobile, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

@@ -1,0 +1,70 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TrackPromotion>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "Track Promotions";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Track Promotions</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TrackPromotions",
+        SingleName = "TrackPromotion",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+{
+new GridField("Id")
+{
+  Filter = new GridFieldFilter()
+{
+PreSelectedIds = Model.RequestInputs["Id"]
+}
+},
+new GridField("Name", "Id", "Name")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/TrackPromotions/autocomplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+    }
+},
+new GridField("Description", "Id", "Description")
+{
+  Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/TrackPromotions/autocomplete",
+    PreSelectedIds = Model.RequestInputs["Id"]
+    }
+},
+            new GridField("Track.Name", "TrackId", "Track")
+{
+    Filter = new GridFieldFilter()
+    {
+    Type = GridFieldFilterType.Ajax,
+    AjaxSource = "/Tracks/AutoComplete",
+    PreSelectedIds = Model.RequestInputs["TrackId"]
+
+    }
+}, new GridField("Image",  "http://tollab.azurewebsites.net/ws/Images/TeacherSubjectImages/", "Image",1){
+        Filter = new GridFieldFilter()
+        {
+             Type = GridFieldFilterType.Photo,
+        }
+    },
+}
+
+    });
+}

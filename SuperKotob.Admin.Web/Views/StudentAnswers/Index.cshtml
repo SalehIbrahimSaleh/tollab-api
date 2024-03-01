@@ -1,0 +1,151 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<StudentAnswer>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "StudentAnswers";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Answers</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "StudentAnswers",
+        SingleName = "StudentAnswer",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+        new GridField("StudentExam.Id", "StudentExamId", "StudentExam Id")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/StudentExams/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentExamId"]
+            }
+        }
+        ,
+         new GridField("ExamQuestion.Title", "ExamQuestionId", "Question")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/ExamQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamQuestionId"]
+            }
+        }
+
+         ,
+        new GridField("ExamAnswer.Answer", "ExamAnswerId", "Exam Answer")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/ExamAnswers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["ExamAnswerId"]
+            }
+        },
+            new GridField("ExamQuestion.Degree", "ExamQuestionId", "Question Degree")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/ExamQuestions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["ExamQuestionId"]
+            }
+        }
+
+         ,
+     new GridField("Degree", "Id", "Student Degree")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/StudentAnswers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+   new GridField("AnswerText", "Id", "AnswerText")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/StudentAnswers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+      new GridField("TeacherCorrectance", "Id", "TeacherCorrectance")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/StudentAnswers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+            new GridField("IsTrue", "Id", "Is True?")
+       {
+            Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/StudentAnswers/AutoComplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+
+            }
+        },
+            new GridField("Answer Path","NewPdfAnswerPath","Go To File","",true )
+        {
+            Filter = new GridFieldFilter()
+            {
+                Type = GridFieldFilterType.HyperLink
+
+
+            }
+        },
+
+              new GridField("Voice","VoicePath","Get Voice","http://tollab.azurewebsites.net/ws/AnswerFiles/",true )
+        {
+        Filter = new GridFieldFilter()
+        {
+            Type = GridFieldFilterType.Sound
+        }
+        },
+        }
+    });
+}
+<style>
+    #edt {
+        display: none;
+    }
+
+    #det {
+        display: none;
+    }
+
+    #crt {
+        display: none;
+    }
+
+    #txt {
+        display: none;
+    }
+</style>

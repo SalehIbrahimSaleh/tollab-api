@@ -1,0 +1,514 @@
+﻿@model Tollab.Admin.Data.Models.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Details</h2>
+<style>
+
+
+    .scroltbl {
+        transform: rotateX(180deg);
+        overflow-x: scroll;
+    }
+
+    .scroltbl2 {
+        transform: rotateX(180deg);
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12 scroltbl">
+        <div class="scroltbl2" style="padding-bottom: 70px;">
+
+            <table class="table box">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneKey)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Vcode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CountryId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Enabled)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Verified)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Photo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Bio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PaymentLink)
+                    </th>
+                </tr>
+
+                @if (Model != null)
+                {
+                    var item = Model;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneKey)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Vcode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Country.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Enabled)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Verified)
+                    </td>
+                    <td>
+                        <img src="http://localhost/ws/Images/StudentImages/@item.Photo" height="100" width="100" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentLink)
+                    </td>
+                </tr>
+
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Departments</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Department")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.StudentDepartments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Subjects</h2>
+
+
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.DepartmentSubCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.SubjectDepartment)
+        </th>
+        <th>
+            @Html.DisplayName("Subject English Name")
+        </th>
+        <th>
+            @Html.DisplayName("Subject Arabic Name ")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.StudentSubjects)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.DepartmentSubCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectDepartment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameLT)
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Tracks</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Track")
+        </th>
+        <th>
+            @Html.DisplayName("Enrolment Date")
+        </th>
+        <th>
+            @Html.DisplayName("Duration Expiration")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.StudentTracks)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Track.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DurationExpiration)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Courses</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Course")
+        </th>
+        <th>
+            @Html.DisplayName("Enrolment Date")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.StudentCourses)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate2)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Exams</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Exam")
+        </th>
+        <th>
+            @Html.DisplayName("Solve Status")
+        </th>
+        <th>
+            @Html.DisplayName("Teacher Assistant")
+        </th>
+        <th>
+            @Html.DisplayName("Total Score")
+        </th>
+        <th>
+            @Html.DisplayName("Creation Date")
+        </th>
+        <th>
+            @Html.DisplayName("Show Result")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.StudentExams)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Exam.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SolveStatus.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherAssistant.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreationDate)
+        </td>
+        <td>
+            <a href="/StudentAnswers/index?StudentExamId=@item.Id" target="_blank">Show Result</a>
+        </td>
+    </tr>
+
+    }
+
+</table>
+
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Favourits</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Course")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.Favourites)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Promocodes</h2>
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayName("Promocode value")
+        </th>
+        <th>
+            @Html.DisplayName("Promocode")
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.StudentPromoCodes)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromoCode.PromoCodeValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromoCode.PromoCodeText)
+            </td>
+        </tr>
+
+    }
+
+</table>
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Notifications</h2>
+
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.Reference.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.TitleLT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.NotificationTypeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentNotification.NotificationToId)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.StudentNotifications)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reference.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleLT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotificationTypeId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotificationToId)
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Student Transactions</h2>
+
+<table class="table box">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.Course.CourseTrack)
+        </th>
+        <th>
+            @Html.DisplayName("Student")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.Track.TrackSubject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.Reason)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.ReasonLT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.PaymentMethodId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.ReferenceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTransaction.PromocodeNumber)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.StudentTransactions)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseTrack)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Track.TrackSubject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reason)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReasonLT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMethodId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReferenceNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PromocodeNumber)
+            </td>
+
+        </tr>
+    }
+
+</table>

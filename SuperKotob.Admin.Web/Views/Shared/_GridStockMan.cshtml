@@ -1,0 +1,309 @@
+﻿@model SuperKotob.Admin.Web.Models.StockManGridModel
+@using SuperKotob.Admin.Web.Models
+
+<style>
+    .grid-row-commands {
+        width: 90px;
+    }
+    .grid-row-commands a{
+        cursor:pointer
+    }
+</style>
+<script>
+    var supermatjar_grid_filters = [];
+    var supermatjar_grid_filters_page;
+
+    function onFilterChanged(name, value, silent) {
+        if (name === 'page') {
+            supermatjar_grid_filters_page = {
+                name: name,
+                value: value
+            };
+            return;
+        }
+        var targetFilter;
+        for (var i = 0; i < supermatjar_grid_filters.length; i++) {
+            var filter = supermatjar_grid_filters[i];
+            if (filter && filter.name === name) {
+                targetFilter = filter;
+                targetFilter.value = value;
+            }
+            if (targetFilter && (value === 0 || value === "0")) {
+                var index = supermatjar_grid_filters.indexOf(targetFilter);
+                supermatjar_grid_filters.splice(index, 1);
+            }
+        }
+        if (!targetFilter)
+            supermatjar_grid_filters.push({ name: name, value: value });
+
+        var x = [].concat(supermatjar_grid_filters);
+        if (supermatjar_grid_filters_page && supermatjar_grid_filters_page.name)
+            x.push(supermatjar_grid_filters_page);
+
+        var url = "?" + x.map(function (f) {
+
+            return f.name + "=" + f.value;
+        }).join("&");
+
+        if (!silent)
+            window.location.href = url;
+
+    }
+</script>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                @if (Model.Items?.FirstOrDefault() is SuperKotob.Admin.Data.Models.Order)
+                {
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="btnOpenQuickCreateOrder()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Quick New Order
+                    </button>
+                }
+                else
+                {
+                <a href="/@Model.PluralName/create" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true"></i> New @Model.SingleName
+                </a>
+                }
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                    <tr role="row">
+                                        @{
+                                            <th class="grid-row-commands"></th>
+                                            for (var i = 0; i < Model.Fields.Count; i++)
+                                            {
+                                                var field = Model.Fields[i];
+
+                                                <th class="@(i == 0 ? "sorting_asc" : "sorting")"
+                                                    tabindex="0"
+                                                    aria-controls="example2" rowspan="1" colspan="1"
+                                                    aria-sort="@(i == 0 ? "ascending" : "")">
+                                                    @*aria-label="Rendering engine: activate to sort column descending"*@
+                                                    @field.DisplayName
+                                                    <br />
+                                                    @{
+
+                                                        var preSelectedIds = string.Join(",", field.Filter.PreSelectedIds);
+                                                        var preSelectedAttr = string.IsNullOrWhiteSpace(preSelectedIds) ? "" : $"data-grid-filter-selected-ids='{preSelectedIds}'";
+                                                    }
+                                                    @if (field.Filter.Type == GridFieldFilterType.Select)
+                                                    {
+                                                        <select id="grid-filter-@field"
+                                                                @Html.Raw(preSelectedAttr)
+                                                                data-grid-filter-name="@field.ValueProperty"
+                                                                class="data-grid-filter data-grid-filter-select">
+                                                            @foreach (var op in field.Filter.Options)
+                                                            {
+                                                                var attr = op.Id.ToString() == preSelectedIds ? "selected" : "";
+                                                                <option value="@op.Id" @attr>@op.Text</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.Ajax)
+                                                    {
+
+                                                        <input type="text"
+                                                               autocomplete="off"
+                                                               @Html.Raw(preSelectedAttr)
+                                                               data-grid-filter-name="@field.ValueProperty"
+                                                               class="data-grid-filter data-grid-filter-ajax"
+                                                               data-grid-filter-ajax-url="@field.Filter.AjaxSource" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text"
+                                                               @Html.Raw(preSelectedAttr)
+                                                               data-grid-filter-name="@field.ValueProperty"
+                                                               class="data-grid-filter data-grid-filter-default" />
+                                                    }
+                                                </th>
+
+                                                        }
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        for (var i = 0; i < Model.Items.Count; i++)//I replace all item.IdentityId by item.Id 
+                                        {
+                                            var item = Model.Items[i];
+
+                                            <tr id="grid-row-@item.Id" role="row" class="@(i % 2 == 0 ? "even" : "odd")">
+                                                <td class="grid-row-commands">
+                                                    
+                                                    @if (item is SuperKotob.Admin.Data.Models.Order)
+                                                    {
+                                                        <a onclick="quickEditOrder('@item.Id')">Quick Edit</a> <text>|</text>//item.IdentityId
+                                                    }
+                                                    else
+                                                    {
+                                                    <a href="/@Model.PluralName/edit/@item.Id">Edit</a> <text>|</text>//item.IdentityId
+                                                    }
+                                                    <a onclick="deleteItem('@item.Id')">Delete</a>
+                                                </td>
+                                                @foreach (var field in Model.Fields)
+                                                {
+                                                    <td>@Model.GetItemValue(item, field)</td>
+                                                }
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @{Html.RenderPartial("_GridStockManPager", Model);}
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+<script>
+    function deleteItem(id){
+        var url = "/@Model.PluralName/delete/" + id;
+        window.open(url,"_self");
+
+        //$.ajax({
+        //    url: url,
+        //    type: 'GET',
+        //    error: function (err) {
+        //        alert(err.statusText);
+        //    },
+        //    success: function (res) {
+        //        $("#grid-row-" + id).remove();
+        //    }
+        //});
+    }
+    function onGridReady() {
+        $('.data-grid-filter-select').each(function (i, item) {
+            var $item = $(item);
+            var name = $item.attr('data-grid-filter-name');
+
+            $item.selectize({
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+                },
+                onInitialize: function () {
+                    var ids = $item.attr('data-grid-filter-selected-ids');
+                    if (!ids)
+                        return;
+                    item.selectize.setValue(ids, true);
+                    onFilterChanged(name, ids, true);
+                }
+            });
+        });
+        $('.data-grid-filter-default').each(function (i, item) {
+            var $item = $(item);
+            var name = $item.attr('data-grid-filter-name');
+
+            $item.selectize({
+                delimiter: ',',
+                persist: false,
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+                },
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: input
+                    }
+                },
+                onInitialize: function () {
+                    var strIds = $item.attr('data-grid-filter-selected-ids');
+                    if (!strIds)
+                        return;
+                    ids = strIds.split(',');
+                    var idsObjs = [];
+                    for (var i = 0; i < ids.length; i++)
+                        idsObjs.push({
+                            value: ids[i],
+                            text: ids[i]
+                        });
+
+                    item.selectize.addOption(idsObjs);
+                    item.selectize.setValue(ids, true);
+                    onFilterChanged(name, strIds, true);
+                }
+            });
+        });
+
+
+        $('.data-grid-filter-ajax').each(function (index, item) {
+            var $item = $(item);
+            var url = $item.attr('data-grid-filter-ajax-url');
+            var name = $item.attr('data-grid-filter-name');
+
+            $item.selectize({
+                valueField: 'Id',
+                labelField: 'Text',
+                searchField: 'Text',
+                options: [],
+                create: false,
+                render: {
+                    option: function (item, escape) {
+                        return '<div>' + escape(item.Text) + '</div>';
+                    }
+                },
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+                },
+                load: function (query, callback) {
+                    if (!query.length) return callback();
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            text: query
+                        },
+                        error: function () {
+                            callback();
+                        },
+                        success: function (res) {
+                            callback(res.Data);
+                        }
+                    });
+                },
+                onInitialize: function () {
+                    var ids = $item.attr('data-grid-filter-selected-ids');
+                    if (!ids)
+                        return;
+
+                    onFilterChanged(name, ids, true);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            text: ids,
+                            isIdList: true
+                        },
+                        success: function (data) {
+                            item.selectize.addOption(data.Data); // This is will add to option
+                            var selected_items = [];
+                            $.each(data.Data, function (i, obj) {
+                                selected_items.push(obj.IdentityId);
+                            });
+                            item.selectize.setValue(selected_items, true); //this will set option values as default
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+</script>

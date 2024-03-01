@@ -1,0 +1,107 @@
+﻿@model SuperKotob.Admin.Core.DataResponse<TrackSubscription>
+@using SuperKotob.Admin.Web.Models
+@using Tollab.Admin.Data.Models
+@using SuperKotob.Admin.Data.Models
+
+
+@{
+    ViewBag.Title = "TrackSubscriptions";
+}
+<style>
+    #Details {
+        display: none !important;
+    }
+</style>
+<h2 style="text-align:center;color:white;border-radius:25px;background:#3c8dbc">Track Subscriptions</h2>
+
+@{
+    Html.RenderPartial("_grid", new GridModel()
+    {
+        PluralName = "TrackSubscriptions",
+        SingleName = "TrackSubscription",
+        Errors = Model.Errors,
+        Items = Model.Data.Select(x => x as DataModel).ToList(),
+        PagingMeta = Model.Paging,
+        Fields = new List<GridField>()
+        {
+        new GridField("Id")
+        {
+          Filter = new GridFieldFilter()
+        {
+        PreSelectedIds = Model.RequestInputs["Id"]
+        }
+        },
+         new GridField("Student.Id", "StudentId", "Student Id")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+            new GridField("Student.Name", "StudentId", "Student")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+               new GridField("Student.Phone", "StudentId", "Student Phone")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Students/autocomplete",
+            PreSelectedIds = Model.RequestInputs["StudentId"]
+            }
+        }
+        ,
+                 new GridField("Track.Id", "TrackId", "Track Id")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Tracks/autocomplete",
+            PreSelectedIds = Model.RequestInputs["TrackId"]
+            }
+        }
+        ,
+        new GridField("Track.TrackSubject", "TrackId", "Track")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/Tracks/autocomplete",
+            PreSelectedIds = Model.RequestInputs["TrackId"]
+            }
+        }
+        ,
+         new GridField("DurationExpiration", "Id", "Duration Expiration")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.Ajax,
+            AjaxSource = "/TrackSubscriptions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+             new GridField("CreationDate", "Id", "Creation Date")
+        {
+          Filter = new GridFieldFilter()
+            {
+            Type = GridFieldFilterType.WithoutSearch,
+            AjaxSource = "/TrackSubscriptions/autocomplete",
+            PreSelectedIds = Model.RequestInputs["Id"]
+            }
+        }
+        ,
+        }
+    });
+}
+

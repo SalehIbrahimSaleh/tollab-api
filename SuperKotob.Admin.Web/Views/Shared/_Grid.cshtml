@@ -1,0 +1,407 @@
+﻿@model SuperKotob.Admin.Web.Models.GridModel
+@using SuperKotob.Admin.Web.Models
+
+<style>
+    .grid-row-commands {
+        width: 90px;
+    }
+
+        .grid-row-commands a {
+            cursor: pointer;
+        }
+    .scroltbl {
+        transform: rotateX(180deg);
+        overflow-x: scroll;
+    }
+    .scroltbl2 {
+        transform: rotateX(180deg);
+    }
+</style>
+<script>
+    var SuperKotob_grid_filters = [];
+    var SuperKotob_grid_filters_page;
+
+    function onFilterChanged(name, value, silent) {
+        if (name === 'page') {
+            SuperKotob_grid_filters_page = {
+                name: name,
+                value: value
+            };
+            return;
+        }
+        var targetFilter;
+        for (var i = 0; i < SuperKotob_grid_filters.length; i++) {
+            var filter = SuperKotob_grid_filters[i];
+            if (filter && filter.name === name) {
+                targetFilter = filter;
+                targetFilter.value = value;
+            }
+            if (targetFilter && (value === 0 || value === "0")) {
+                var index = SuperKotob_grid_filters.indexOf(targetFilter);
+                SuperKotob_grid_filters.splice(index, 1);
+            }
+        }
+        if (!targetFilter)
+            SuperKotob_grid_filters.push({ name: name, value: value });
+
+        var x = [].concat(SuperKotob_grid_filters);
+        if (SuperKotob_grid_filters_page && SuperKotob_grid_filters_page.name)
+            x.push(SuperKotob_grid_filters_page);
+
+        var url = "?" + x.map(function (f) {
+
+            return f.name + "=" + f.value;
+        }).join("&");
+
+        if (!silent)
+            window.location.href = url;
+
+    }
+</script>
+<div class="row "  style="margin-top:15px">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                @*@if (Model.Items?.FirstOrDefault() is SuperKotob.Admin.Data.Models.Order)
+                    {
+                        <button type="button" class="btn btn-primary" data-toggle="modal" onclick="btnOpenQuickCreateOrder()">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Quick New Order
+                        </button>
+                    }
+                    else
+                    {*@
+                <a href="/@Model.PluralName/create" class="btn btn-primary" id="crt">
+                    <i class="fa fa-plus" aria-hidden="true"></i> New @*@Model.SingleName*@
+                </a>
+
+                @if (!string.IsNullOrWhiteSpace(Model.BackText) && !string.IsNullOrWhiteSpace(Model.BackUrl))
+                {
+                    <a href="@Model.BackUrl" class="btn btn-primary" style="float:right">
+                        <i class="fa fa-back" aria-hidden="true"></i> < < @Model.BackText
+                    </a>
+                }
+                @* }*@
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                    <div class="row">
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-12 scroltbl">
+                            <div class="scroltbl2" style="padding-bottom: 70px;">
+                                <table id="example2" class=" table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr role="row">
+                                            @{
+                                                <th class="grid-row-commands"></th>
+                                                for (var i = 0; i < Model.Fields.Count; i++)
+                                                {
+                                                    var field = Model.Fields[i];
+                                                <th class="@((i == 0 ? "sorting_asc" : "sorting") + " column_"+ field.TextProperty)"
+                                                    tabindex="0"
+                                                    rowspan="1" colspan="1"
+                                                    aria-sort="@(i == 0 ? "ascending" : "")">
+                                                    @*aria-label="Rendering engine: activate to sort column descending"*@
+                                                    @field.DisplayName
+                                                    <br />
+                                                    @{
+
+                                                        var preSelectedIds = string.Join(",", field.Filter.PreSelectedIds);
+                                                        var preSelectedAttr = string.IsNullOrWhiteSpace(preSelectedIds) ? "" : @"data-grid-filter-selected-ids=" + preSelectedIds + "";
+
+
+                                                    }
+                                                    @if (field.Filter.Type == GridFieldFilterType.Select)
+                                                    {
+                                                        <select id="grid-filter-@field"
+                                                                @Html.Raw(preSelectedAttr)
+                                                                data-grid-filter-name="@field.ValueProperty"
+                                                                class="data-grid-filter data-grid-filter-select">
+                                                            @foreach (var op in field.Filter.Options)
+                                                            {
+                                                                var attr = op.Id.ToString() == preSelectedIds ? "selected" : "";
+                                                                <option value="@op.Id" @attr>@op.Text</option>
+                                                            }
+                                                        </select>
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.Ajax)
+                                                    {
+
+                                                        <input type="text"
+                                                               autocomplete="off"
+                                                               @Html.Raw(preSelectedAttr)
+                                                               data-grid-filter-name="@field.ValueProperty"
+                                                               data-grid-filter-field="@field.TextProperty"
+                                                               class="data-grid-filter data-grid-filter-ajax"
+                                                               data-grid-filter-ajax-url="@field.Filter.AjaxSource" />
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.HyperLink)
+                                                    {
+
+
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.Photo)
+                                                    {
+
+
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.WithoutSearch)
+                                                    {
+
+
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.Sound)
+                                                    {
+
+
+
+                                                    }
+                                                    else if (field.Filter.Type == GridFieldFilterType.ChooseFromMultibleFields)
+                                                    {
+
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="text"
+                                                               @Html.Raw(preSelectedAttr)
+                                                               data-grid-filter-name="@field.ValueProperty"
+                                                               class="data-grid-filter data-grid-filter-default" />
+                                                    }
+                                                </th>
+
+                                                }
+                                            }
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            for (var i = 0; i < Model.Items.Count; i++)
+                                            {
+                                                var item = Model.Items[i];
+
+                                                                                <tr id="grid-row-@item.Id" role="row" class="@(i % 2 == 0 ? "even" : "odd")">
+                                                                                    <td class="grid-row-commands">
+                                                                                        @*<a onclick="quickEditOrder('@item.Id')">Quick Edit</a>*@
+                                                                                        <a href="/@Model.PluralName/edit/@item.Id" id="edt">Edit</a><text id="txt">|</text>
+                                                                                        <a onclick="deleteItem(@item.Id)" id="det">Delete</a>
+                                                                                    </td>
+                                                                                    @foreach (var field in Model.Fields)
+                                                                                    {
+                                                                                        if (field.Filter.Type == GridFieldFilterType.HyperLink)
+                                                                                        {
+
+
+                                                                                            if (string.IsNullOrEmpty(Model.GetItemValue(item, field)))
+                                                                                            {<td></td>}
+                                                                                            else
+                                                                                            {<td> <a target="_blank" href="@field.HyperLinkPattern@Model.GetItemValue(item, field)">@field.HyperLinkTitle</a> </td>} 
+
+                                                                                        }
+                                                                                        else if (field.Filter.Type == GridFieldFilterType.Photo)
+                                                                                        {
+
+                                                                                            <td> <img src="@field.PhotolinkPattern@Model.GetItemValue(item, field)" style="max-width:150px; max-height:150px; width:auto;height:auto;" /> </td>
+
+                                                                                        }
+                                                                                        else if (field.Filter.Type == GridFieldFilterType.Sound)
+                                                                                        {
+
+                                                                                            <td>
+                                                                                                <audio controls>
+                                                                                                    <source src="@field.HyperLinkPattern@Model.GetItemValue(item, field)" type="audio/mpeg">
+                                                                                                </audio>
+                                                                                            </td>
+                                                                                        }
+                                                                                        else if (field.Filter.Type == GridFieldFilterType.ChooseFromMultibleFields)
+                                                                                        {
+                                                                                            foreach (var chooseField in field.FieldChoosings)
+                                                                                            {
+                                                                                                if (GridModel.GetPropValue(item, chooseField.ValueProperty) != null)
+                                                                                                {
+                                                                                                    if (chooseField.Filter.Type == GridFieldFilterType.HyperLink)
+                                                                                                    {
+
+
+                                                                                                        <td> <a target="_blank" href="@chooseField.HyperLinkPattern@GridModel.GetPropValue(item, chooseField.ValueProperty)">@chooseField.HyperLinkTitle</a> </td>
+                                                                                                    }
+                                                                                                    else if (chooseField.Filter.Type == GridFieldFilterType.Photo)
+                                                                                                    {
+                                                                                                        <td> <img src="@chooseField.PhotolinkPattern@GridModel.GetPropValue(item, chooseField.ValueProperty)" style="max-width:150px; max-height:150px; width:auto;height:auto;" /> </td>
+
+                                                                                                    }
+                                                                                                    break;
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <td>@Model.GetItemValue(item, field)</td>
+                                                                                        }
+                                                                                    }
+                                                                                    <td>
+                                                                                        <a href="/@Model.PluralName/Details/@item.Id" id="Details" style="">Details</a>
+                                                                                    </td>
+                                                                                </tr>
+
+
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    @{Html.RenderPartial("_GridPager", Model);}
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+<script>
+    function deleteItem(id){
+        var url = "/@Model.PluralName/delete/" + id;
+        window.open(url,"_self");
+
+        //$.ajax({
+        //    url: url,
+        //    type: 'GET',
+        //    error: function (err) {
+        //        alert(err.statusText);
+        //    },
+        //    success: function (res) {
+        //        $("#grid-row-" + id).remove();
+        //    }
+        //});
+
+    }
+    function onGridReady() {
+        $('.data-grid-filter-select').each(function (i, item) {
+            var $item = $(item);
+            var name = $item.attr('data-grid-filter-name');
+            var field = $item.attr('data-grid-filter-field');
+            $item.selectize({
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+                },
+                onInitialize: function () {
+                    var ids = $item.attr('data-grid-filter-selected-ids');
+                    if (!ids)
+                        return;
+                    item.selectize.setValue(ids, true);
+                    onFilterChanged(name, ids, true);
+                }
+            });
+        });
+        $('.data-grid-filter-default').each(function (i, item) {
+            var $item = $(item);
+            var name = $item.attr('data-grid-filter-name');
+            var field = $item.attr('data-grid-filter-field');
+
+            $item.selectize({
+                delimiter: ',',
+                persist: false,
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+
+                },
+                create: function (input) {
+                    return {
+                        value: input,
+                        text: input
+                    }
+                },
+                onInitialize: function () {
+                    var strIds = $item.attr('data-grid-filter-selected-ids');
+                    if (!strIds)
+                        return;
+                    ids = strIds.split(',');
+                    var idsObjs = [];
+                    for (var i = 0; i < ids.length; i++)
+                        idsObjs.push({
+                            value: ids[i],
+                            text: ids[i]
+                        });
+
+                    item.selectize.addOption(idsObjs);
+                    item.selectize.setValue(ids, true);
+                    onFilterChanged(name, strIds, true);
+                }
+            });
+        });
+
+
+        $('.data-grid-filter-ajax').each(function (index, item) {
+            var $item = $(item);
+            var url = $item.attr('data-grid-filter-ajax-url');
+            var name = $item.attr('data-grid-filter-name');
+            var field = $item.attr('data-grid-filter-field');
+
+            $item.selectize({
+                valueField: 'Id',
+                labelField: 'Text',
+                searchField: 'Text',
+                options: [],
+                create: false,
+                render: {
+                    option: function (item, escape) {
+                        return '<div>' + escape(item.Text) + '</div>';
+                    }
+                },
+                onChange: function (value) {
+                    onFilterChanged(name, value);
+                },
+                load: function (query, callback) {
+                    if (!query.length) return callback();
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            text: query,
+                            field: field
+                        },
+                        error: function () {
+                            callback();
+                        },
+                        success: function (res) {
+                            callback(res.Data);
+                        }
+                    });
+                },
+                onInitialize: function () {
+                    var ids = $item.attr('data-grid-filter-selected-ids');
+                    if (!ids)
+                        return;
+
+                    onFilterChanged(name, ids, true);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            text: ids,
+                            isIdList: true,
+                            field: field
+                        },
+                        success: function (data) {
+                            item.selectize.addOption(data.Data); // This is will add to option
+                            var selected_items = [];
+                            $.each(data.Data, function (i, obj) {
+                                selected_items.push(obj.Id);
+                            });
+                            item.selectize.setValue(selected_items, true); //this will set option values as default
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+</script>

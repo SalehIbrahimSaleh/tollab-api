@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+    <style>
+        #hh {
+            text-align: center;
+            margin-top: 140px;
+        }
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm("DoPayment", "Pay", FormMethod.Get, new { target = "_blank" }))
+    {
+        <div class="jumbotron text-xs-center" id="hh">
+            <h1 class="display-3">Error!</h1>
+            <p class="lead">Please Contact With system admin or try again later</p>
+            <hr>
+        </div>
+
+    }
+</body>
+</html>
+

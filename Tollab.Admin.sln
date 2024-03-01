@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin", "SuperKotob.Admin\Tollab.Admin.csproj", "{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin.Core", "SuperKotob.Admin.Core\Tollab.Admin.Core.csproj", "{1AEB7E4A-B03F-4760-BE98-CC070E9E992A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin.Data", "SuperKotob.Admin.Data\Tollab.Admin.Data.csproj", "{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin.Models", "SuperKotob.Admin.Models\Tollab.Admin.Models.csproj", "{229D36A7-B263-462F-BA76-EE9022A9C1CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin.Web", "SuperKotob.Admin.Web\Tollab.Admin.Web.csproj", "{BA1C2127-13B9-468E-A966-38F774332AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tollab.Admin.WebProtector", "SuperKotob.Admin.WebProtector\Tollab.Admin.WebProtector.csproj", "{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AE3834D-AC03-4CA8-A46E-F2B01E536A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AEB7E4A-B03F-4760-BE98-CC070E9E992A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEB7E4A-B03F-4760-BE98-CC070E9E992A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEB7E4A-B03F-4760-BE98-CC070E9E992A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEB7E4A-B03F-4760-BE98-CC070E9E992A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B2EC62F-EE53-4E46-95E8-0676DCD6E853}.Release|Any CPU.Build.0 = Release|Any CPU
+		{229D36A7-B263-462F-BA76-EE9022A9C1CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229D36A7-B263-462F-BA76-EE9022A9C1CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229D36A7-B263-462F-BA76-EE9022A9C1CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229D36A7-B263-462F-BA76-EE9022A9C1CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1C2127-13B9-468E-A966-38F774332AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1C2127-13B9-468E-A966-38F774332AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1C2127-13B9-468E-A966-38F774332AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1C2127-13B9-468E-A966-38F774332AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0CCB42E-4CD6-48F4-A4CD-9451B8D9BDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0028351D-0749-47C7-BF75-5408AAC347EA}
+	EndGlobalSection
+EndGlobal
