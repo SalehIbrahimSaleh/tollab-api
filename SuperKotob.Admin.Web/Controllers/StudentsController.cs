@@ -137,7 +137,9 @@ namespace Tollab.Admin.Web.Controllers
                     }
                 }
                 catch (Exception ex)
-                { }
+            {
+                throw ex;
+            }
             
 
         }

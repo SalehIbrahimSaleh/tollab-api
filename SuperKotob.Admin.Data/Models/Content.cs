@@ -65,7 +65,7 @@ namespace Tollab.Admin.Data.Models
                     }
                     else if (ContentTypeId == 2)
                     {
-                        return "http://localhost:90/ws/CourseVideos/" + Path;
+                        return "http://tollab.com/ws/CourseVideos/" + Path;
                     }
                     else return "#";
                 }

@@ -40,7 +40,7 @@ namespace Tollab.Admin.Data.Models
             {
                 if (!string.IsNullOrEmpty(FilePath))
                 {
-                    return "http://localhost:90/ws/ExamFiles/" + FilePath;
+                    return "http://tollab.com/ws/ExamFiles/" + FilePath;
                 }
                 else return "#";
             }
