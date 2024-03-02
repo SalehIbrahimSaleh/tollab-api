@@ -43,8 +43,8 @@ namespace Tollab.Admin.Web.Controllers
                 MobileCountryCode = student.PhoneKey,
                 CustomerMobile = student.Phone,
                 CustomerEmail = student.Email,
-                CallBackUrl = "https://tollab.azurewebsites.net/sws/api/OnPaymentSuccess",
-                ErrorUrl = "https://tollab.azurewebsites.net/sws/api/OnPaymentError",
+                CallBackUrl = "http://tollab.com/tollab/api/OnPaymentSuccess",
+                ErrorUrl = "http://tollab.com/tollab/api/OnPaymentError",
                 Language = "en",
                 ExpiryDate = DateTime.UtcNow.AddDays(1)
             };
@@ -109,7 +109,7 @@ namespace Tollab.Admin.Web.Controllers
                     return View("Error");
 
                 }
-                string uri = "https://tollab.azurewebsites.net/sws/api/BuyCourseByLink?PaymentKey=" + PaymentKey + "&CourseCode=" +CourseCode+"&PromocodeText=";
+                string uri = "http://tollab.com/tollab/api/BuyCourseByLink?PaymentKey=" + PaymentKey + "&CourseCode=" +CourseCode+"&PromocodeText=";
                 var client = new HttpClient();
                 var response2 = await client.GetAsync(uri);
                 var responseString = await response2.Content.ReadAsStringAsync();
@@ -172,7 +172,7 @@ namespace Tollab.Admin.Web.Controllers
                     return View("Error");
 
                 }
-                string uri = "https://tollab.azurewebsites.net/sws/api/TrackSubscriptionByLink?PaymentKey=" + PaymentKey + "&TrackCode=" + TrackCode + "&PromocodeText=";
+                string uri = "http://tollab.com/tollab/api/TrackSubscriptionByLink?PaymentKey=" + PaymentKey + "&TrackCode=" + TrackCode + "&PromocodeText=";
                 var client = new HttpClient();
                 var response2 = await client.GetAsync(uri);
                 var responseString = await response2.Content.ReadAsStringAsync();

@@ -49,7 +49,7 @@ namespace Tollab.Admin.Web.Controllers
                                 thePictureAsBytes = theReader.ReadBytes(ImageFile.ContentLength);
                             }
                             string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-                            string uri = "https://tollab.azurewebsites.net/sws/api/SetPhoto";
+                            string uri = "http://tollab.com/tollab/api/SetPhoto";
                             var client = new HttpClient();
                             var imageObject = new { RecordId = item.Id, Table = "Country", CoulmnName = "Flag", ImageType =(int) ImageFolders.Flags, Image = thePictureDataAsString };
                             var response = await client.PostAsJsonAsync(uri, imageObject);
@@ -95,7 +95,7 @@ namespace Tollab.Admin.Web.Controllers
                             thePictureAsBytes = theReader.ReadBytes(ImageFile.ContentLength);
                         }
                         string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-                        string uri = "https://tollab.azurewebsites.net/sws/api/SetPhoto";
+                        string uri = "http://tollab.com/tollab/api/SetPhoto";
                         var client = new HttpClient();
                         var imageObject = new { RecordId = item.Id, Table = "Country", CoulmnName = "Flag", ImageType = (int)ImageFolders.Flags, Image = thePictureDataAsString };
                         var response = await client.PostAsJsonAsync(uri, imageObject);

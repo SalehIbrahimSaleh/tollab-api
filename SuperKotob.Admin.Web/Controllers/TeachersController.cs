@@ -199,7 +199,7 @@ namespace Tollab.Admin.Web.Controllers
                     thePictureAsBytes = theReader.ReadBytes(ImageFile.ContentLength);
                 }
                 string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-                string uri = "https://tollab.azurewebsites.net/sws/api/SetPhoto";
+                string uri = "http://tollab.com/tollab/api/SetPhoto";
                 var client = new HttpClient();
                 var imageObject = new { RecordId = teacher.Id, Table = "Teacher", CoulmnName = "Photo", ImageType = (int)ImageFolders.TeacherImages, Image = thePictureDataAsString };
                 var response = await client.PostAsJsonAsync(uri, imageObject);

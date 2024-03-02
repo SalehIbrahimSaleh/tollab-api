@@ -40,7 +40,7 @@ namespace Tollab.Admin.Data.Models
             {
                 if (!string.IsNullOrEmpty(FilePath))
                 {
-                    return "http://tollab.azurewebsites.net/ws/ExamFiles/" + FilePath;
+                    return "http://tollab.com/dashboard-v2/ws/ExamFiles/" + FilePath;
                 }
                 else return "#";
             }

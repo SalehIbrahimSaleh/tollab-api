@@ -150,7 +150,7 @@ namespace Tollab.Admin.Web.Controllers
                     {
                         try
                         {
-                            string uri = "https://tollab.azurewebsites.net/sws/api/Upload";
+                            string uri = "http://tollab.com/tollab/api/Upload";
                             using (HttpClient client = new HttpClient())
                             {
                                 using (var content = new MultipartFormDataContent())
@@ -317,7 +317,7 @@ namespace Tollab.Admin.Web.Controllers
                 {
                     try
                     {
-                        string uri = "https://tollab.azurewebsites.net/sws/api/Upload";
+                        string uri = "http://tollab.com/tollab/api/Upload";
                         using (HttpClient client = new HttpClient())
                         {
                             using (var content = new MultipartFormDataContent())
@@ -451,7 +451,7 @@ namespace Tollab.Admin.Web.Controllers
 //            {
 //                try
 //                {
-//                    string uri = "http://tollab.azurewebsites.net/ws/api/Upload";
+//                    string uri = "http://tollab.com/dashboard-v2/ws/api/Upload";
 //                    //string uri = "http://localhost:56065/api/Upload";
 //                    using (HttpClient client2 = new HttpClient())
 //                    {

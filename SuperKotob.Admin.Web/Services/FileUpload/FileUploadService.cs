@@ -14,7 +14,7 @@ namespace Tollab.Admin.Web.Services.FileUpload
     {
         public async Task<string> UploadFile(HttpPostedFileBase file)
         {
-            string uri = "https://tollab.azurewebsites.net/sws/api/Upload";
+            string uri = "http://tollab.com/tollab/api/Upload";
             using (HttpClient client = new HttpClient())
             {
                 using (var content = new MultipartFormDataContent())
@@ -53,7 +53,7 @@ namespace Tollab.Admin.Web.Services.FileUpload
                 thePictureAsBytes = theReader.ReadBytes(image.ContentLength);
             }
             string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-            string uri = "https://tollab.azurewebsites.net/sws/api/SetPhoto";
+            string uri = "http://tollab.com/tollab/api/SetPhoto";
             var client = new HttpClient();
             var imageObject = new { RecordId = recordId, Table = table, CoulmnName = columnName, ImageType = imageType, Image = thePictureDataAsString };
             var response = await client.PostAsJsonAsync(uri, imageObject);

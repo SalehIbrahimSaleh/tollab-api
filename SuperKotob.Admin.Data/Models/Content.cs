@@ -65,7 +65,7 @@ namespace Tollab.Admin.Data.Models
                     }
                     else if (ContentTypeId == 2)
                     {
-                        return "http://tollab.azurewebsites.net/ws/CourseVideos/" + Path;
+                        return "http://tollab.com/dashboard-v2/ws/CourseVideos/" + Path;
                     }
                     else return "#";
                 }
