@@ -55,7 +55,7 @@ namespace Tollab.Admin.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var country= db.Countries.Where(it => it.Id == student.CountryId).FirstOrDefault();
+                    var country = db.Countries.Where(it => it.Id == student.CountryId).FirstOrDefault();
                     Student Resultdata = null;
                     Student GetStudentData = null;
                     string PhoneNumber = MobileNumberChecker.handelMobileNumber(country.Code + student.Phone);
@@ -69,7 +69,7 @@ namespace Tollab.Admin.Web.Controllers
                     }
                     if (userBeforeCreated == null)
                     {
-                        var Identityuser = new ApplicationUser{ UserName = PhoneNumber, Email = email, PhoneNumber = PhoneNumber };
+                        var Identityuser = new ApplicationUser { UserName = PhoneNumber, Email = email, PhoneNumber = PhoneNumber };
 
                         //IdentityResult result = await UserManager.CreateAsync(Identityuser, PhoneNumber);
                         var result = await UserManager.CreateAsync(Identityuser, PhoneNumber);
@@ -112,47 +112,50 @@ namespace Tollab.Admin.Web.Controllers
 
         }
 
-        public async Task SetPhoto(Student student,HttpPostedFileBase ImageFile)
+        public async Task SetPhoto(Student student, HttpPostedFileBase ImageFile)
         {
-           
-                try
+            try
+            {
+                byte[] thePictureAsBytes = new byte[ImageFile.ContentLength];
+                using (BinaryReader theReader = new BinaryReader(ImageFile.InputStream))
                 {
-                    byte[] thePictureAsBytes = new byte[ImageFile.ContentLength];
-                    using (BinaryReader theReader = new BinaryReader(ImageFile.InputStream))
-                    {
-                        thePictureAsBytes = theReader.ReadBytes(ImageFile.ContentLength);
-                    }
-                    string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
-                    string uri = "http://tollab.com/tollab/api/SetPhoto";
-                    var client = new HttpClient();
-                    var imageObject = new { RecordId = student.Id, Table = "Student", CoulmnName = "Photo", ImageType = (int)ImageFolders.StudentImages, Image = thePictureDataAsString };
-                    var response = await client.PostAsJsonAsync(uri, imageObject);
-                    var responseString = await response.Content.ReadAsStringAsync();
-                    var tempResponse = JObject.Parse(responseString);
-                    responseString = tempResponse.ToString();
-                    var responseCode = response.StatusCode;
-                    if (responseCode == HttpStatusCode.OK)
-                    {
-                        var img = tempResponse.GetValue("model").ToString();
-                    }
+                    thePictureAsBytes = theReader.ReadBytes(ImageFile.ContentLength);
                 }
-                catch (Exception ex)
+                string thePictureDataAsString = Convert.ToBase64String(thePictureAsBytes);
+                string uri = "http://tollab.com/tollab/api/SetPhoto";
+                var client = new HttpClient();
+                var imageObject = new { RecordId = student.Id, Table = "Student", CoulmnName = "Photo", ImageType = (int)ImageFolders.StudentImages, Image = thePictureDataAsString };
+                var response = await client.PostAsJsonAsync(uri, imageObject);
+                var responseString = await response.Content.ReadAsStringAsync();
+                var tempResponse = JObject.Parse(responseString);
+                responseString = tempResponse.ToString();
+                var responseCode = response.StatusCode;
+                if (responseCode == HttpStatusCode.OK)
+                {
+                    var img = tempResponse.GetValue("model").ToString();
+                }
+                else
+                {
+                    throw new Exception(responseString);
+                }
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditWithImage(Student  student, HttpPostedFileBase ImageFile)
+        public async Task<ActionResult> EditWithImage(Student student, HttpPostedFileBase ImageFile)
         {
             if (ModelState.IsValid)
             {
                 var OldData = await BusinessService.GetAsync(student.Id);
 
-                if (OldData.Data.FirstOrDefault().CountryId==student.CountryId&& OldData.Data.FirstOrDefault().Phone==student.Phone)
+                if (OldData.Data.FirstOrDefault().CountryId == student.CountryId && OldData.Data.FirstOrDefault().Phone == student.Phone)
                 {
                     var DataReturned = await BusinessService.UpdateAsync(student);
                     if (ImageFile != null && DataReturned.HasData == true)
@@ -179,10 +182,10 @@ namespace Tollab.Admin.Web.Controllers
                     }
                     if (userBeforeUpdated == null)
                     {
-                       var oldUser=  await UserManager.FindByIdAsync(student.IdentityId);
+                        var oldUser = await UserManager.FindByIdAsync(student.IdentityId);
                         oldUser.Email = email;
                         oldUser.PhoneNumber = PhoneNumber;
-                        oldUser.UserName = PhoneNumber; 
+                        oldUser.UserName = PhoneNumber;
                         var result = await UserManager.UpdateAsync(oldUser);
                         if (result.Succeeded)
                         {
@@ -242,23 +245,23 @@ namespace Tollab.Admin.Web.Controllers
                 return HttpNotFound();
             }
             var model = response.Data.FirstOrDefault();
-            if (model!=null)
+            if (model != null)
             {
                 var Departments = db.StudentDepartments.Include(d => d.Student).Include(d => d.Department).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentDepartments = Departments;
                 var Subjects = db.StudentSubjects.Include(d => d.Student).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentSubjects = Subjects;
-                var Courses = db.StudentCourses.Include(d => d.Student).Include(c=>c.Course).Where(d => d.StudentId == model.Id).ToList();
+                var Courses = db.StudentCourses.Include(d => d.Student).Include(c => c.Course).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentCourses = Courses;
                 var Lives = db.StudentLives.Include(d => d.Student).Include(c => c.Live).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentLives = Lives;
                 var Tracks = db.TrackSubscriptions.Include(d => d.Student).Include(c => c.Track).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentTracks = Tracks;
-                var Favourites = db.Favourites.Include(d => d.Student).Include(c=>c.Course).Where(d => d.StudentId == model.Id).ToList();
+                var Favourites = db.Favourites.Include(d => d.Student).Include(c => c.Course).Where(d => d.StudentId == model.Id).ToList();
                 model.Favourites = Favourites;
                 var StudentNotifications = db.StudentNotifications.Include(d => d.Student).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentNotifications = StudentNotifications;
-                var StudentPromoCodes = db.StudentPromoCodes.Include(d => d.Student).Include(i=>i.PromoCode).Where(d => d.StudentId == model.Id).ToList();
+                var StudentPromoCodes = db.StudentPromoCodes.Include(d => d.Student).Include(i => i.PromoCode).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentPromoCodes = StudentPromoCodes;
                 var studentTransactions = db.StudentTransactions.Include(d => d.Student).Where(d => d.StudentId == model.Id).ToList();
                 model.StudentTransactions = studentTransactions;
