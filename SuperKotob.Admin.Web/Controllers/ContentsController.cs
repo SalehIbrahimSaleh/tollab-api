@@ -451,7 +451,7 @@ namespace Tollab.Admin.Web.Controllers
 //            {
 //                try
 //                {
-//                    string uri = "http://tollab.com/ws/api/Upload";
+//                    string uri = "http://tollab.com/tollab/ws/api/Upload";
 //                    //string uri = "http://localhost:56065/api/Upload";
 //                    using (HttpClient client2 = new HttpClient())
 //                    {

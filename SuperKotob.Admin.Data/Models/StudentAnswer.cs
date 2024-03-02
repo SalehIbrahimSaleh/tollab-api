@@ -43,7 +43,7 @@ namespace Tollab.Admin.Data.Models
             {
                 if (!string.IsNullOrEmpty(PdfAnswerPath))
                 {
-                    return "http://tollab.com/ws/AnswerFiles/" + PdfAnswerPath;
+                    return "http://tollab.com/tollab/ws/AnswerFiles/" + PdfAnswerPath;
                 }
                 else return "#";
             }

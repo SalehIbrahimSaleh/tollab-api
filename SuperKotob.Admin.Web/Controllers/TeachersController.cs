@@ -134,10 +134,10 @@ namespace Tollab.Admin.Web.Controllers
                 if (OldData.Data.FirstOrDefault().Email == teacher.Email)
                 {
                     var DataReturned = await BusinessService.UpdateAsync(teacher);
-                    //if (ImageFile != null && DataReturned.HasData == true)
-                    //{
-                    //    await SetPhoto(teacher, ImageFile);
-                    //}
+                    if (ImageFile != null && DataReturned.HasData == true)
+                    {
+                        await SetPhoto(teacher, ImageFile);
+                    }
                     if (!string.IsNullOrWhiteSpace(teacher.Password))
                     {
                         string code = await UserManager.GeneratePasswordResetTokenAsync(oldUser.Id);
